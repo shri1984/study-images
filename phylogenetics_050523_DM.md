@@ -1,7 +1,3 @@
----
-title: "R Markdown Tips and Tricks"
-output: md_document
----
 ### Bioinformatics Practical 3. Phylogentic inferences
 
 **Aim of the practical**
@@ -15,17 +11,17 @@ output: md_document
 We will do a fun exercise before we do a real phylogenetic tree
 construction. Can you place these new organisms in order? And give your
 rationale for your placement of that organism in this tree.
-```{r}
-![](https://raw.githubusercontent.com/shri1984/study-images/main/Picture1.jpg?token=GHSAT0AAAAAACCFFFMCKJAGYBQ2TKLYHCRSZCTYCOA)
-```
+
+`{r ![](/Users/sbh001/Downloads/Picture1.jpg)`
+
 ### Building a phylogenetic tree using some anatomical characters
 
 Table below contains charatcters to make our tree. + indicates presence
 and 0 represents absence. This data taken from Principles of biology by
 Robert Bear (table from khan academy) with some modifications.
-```{r} 
-![](https://raw.githubusercontent.com/shri1984/study-images/main/Screen%20Shot%202023-05-03%20at%2012.23.01.png?token=GHSAT0AAAAAACCFFFMCFAVDD7LRLBPE3LSUZCTYDWQ)
-```
+
+![](/Users/sbh001/Downloads/test.png)
+
 One important thing we should know from above table is what forms the
 ancestral trait, and which are derived traits. This is important to make
 a tree based on characters. An ancestral trait is what we think was
@@ -292,7 +288,7 @@ functions from package àpe\`.
 
 ### 3.3 Maximum Likelihood
 
-\##compare different nucleotide substitution models
+#### compare different nucleotide substitution models
 
     mt <- modelTest(alignmentfish, control=pml.control(trace=0))
 
@@ -302,7 +298,7 @@ or protein models with the AIC, AICc or BIC,
 
     fit <- as.pml(mt, "BIC") #choose best model based on BIC criteria
 
-\#####make a ml tree
+#### make a ml tree
 
 Or let the program to choose best model based on the criteria and pass
 it to tree building algorithm.
@@ -317,8 +313,7 @@ it to tree building algorithm.
     tree_stdbs <- plotBS(midpoint(fit_mt$tree), bs, p = 50, type="n", main="Standard bootstrap")
     ##assigning standard bootstrap values to our tree; this is the default method
 
-\#exporting trees tree with standard bootstrap values in `newick`
-format.
+#### exporting trees tree with standard bootstrap values in `newick` format.
 
     write.tree(tree_stdbs, "fish.tree")
 
