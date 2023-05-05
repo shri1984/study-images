@@ -20,7 +20,7 @@ Table below contains charatcters to make our tree. + indicates presence
 and 0 represents absence. This data taken from Principles of biology by
 Robert Bear (table from khan academy) with some modifications.
 
-![](/Users/sbh001/Downloads/test.png)
+![](https://raw.githubusercontent.com/shri1984/study-images/main/Screen%20Shot%202023-05-03%20at%2012.23.01.png?token=GHSAT0AAAAAACCFFFMDFNA5P5PWHFBIYVHCZCUWUQQ)
 
 One important thing we should know from above table is what forms the
 ancestral trait, and which are derived traits. This is important to make
