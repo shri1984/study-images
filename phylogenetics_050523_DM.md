@@ -12,7 +12,7 @@ We will do a fun exercise before we do a real phylogenetic tree
 construction. Can you place these new organisms in order? And give your
 rationale for your placement of that organism in this tree.
 
-`{r ![](/Users/sbh001/Downloads/Picture1.jpg)`
+![](https://raw.githubusercontent.com/shri1984/study-images/main/Picture1.jpg?token=GHSAT0AAAAAACCFFFMDFDFY7JPQ54CAVGTIZCUWNOA)
 
 ### Building a phylogenetic tree using some anatomical characters
 
