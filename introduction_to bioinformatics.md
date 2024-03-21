@@ -43,13 +43,44 @@ pwd # Print Working Directory, very intuitive.
 
 ```
 
-you will see this: /home/YOURUSERNAME 
+you will see this: /home/YOURUSERNAME. 
 
-So, a) is called prompt, that is the way computer informing you that “I am ready to take your instructions”.
+This is your current working directory (remember from part 1, R?). 
 
-b) reply for the command you executed: pwd: It gives you current working directory (remember from part 1, R?).  Whatever command you execute will be outputted in relation to this directory. 
+
+## Listing the content of a folder /directory
+Use 'ls' to list what is there in your present directory. 'ls' stands for list. 
+
+Type: man ls to read the help. use man for help. 
+
+Mostl likely you will not see anything. Just an empty folder. Lets make some folder inside this. 
+
+## create a new folder inside the working directory
+
+We use 'mkdir' command to make directories.
+
+Try all these commands after reading the manual
+mkdir --parents --verbose dir4/dir5
+mkdir -p --verbose dir4/dir5
+mkdir -p -v dir4/dir5
+mkdir -pv dir4/dir5
+
+
+You might be thinking why I used NAME_OF_A_FOLDER rather NAME OF A FOLDER. In this case we will create 4 different directories. 
+Try yourself! mkdir NAME OF A FOLDER
+Computer will treat space as separating parameter. If you want (I discourage using space) then you should use this option.
+
+mkdir "folder 1"
+mkdir 'folder 2'
+mkdir folder\ 3
+mkdir "folder 4" "folder 5"
+mkdir -p "folder 6"/"folder 7"
+ls
+
+
 
 •	Navigation between the directories
+This is a routine thing we everyday we do in laptop, mocing files from once folder to another. 
 We use a command called cd (Change Directory). 
 cd  specify which directory you want to go 
 Example:  cd .. (Take you one level up) or cd /. 
@@ -80,27 +111,8 @@ mkdir NAME_OF_1_FOLDER NAME_OF_2_FOLDER NAME_OF_3_FOLDER (3 folders at a time)
 mkdir -p NAME_OF_1_FOLDER/NAME_OF_2_FOLDER /NAME_OF_3_FOLDER
 mkdir -p dir1/dir2/dir3 (what happens here and how it different from command just above)
 
-•	Listing the content of a folder /directory
-Use ls to list what is there. ls stands for list. 
-Type: man ls to read the help
-
-Try all these commands after reading the manual
-mkdir --parents --verbose dir4/dir5
-mkdir -p --verbose dir4/dir5
-mkdir -p -v dir4/dir5
-mkdir -pv dir4/dir5
 
 
-You might be thinking why I used NAME_OF_A_FOLDER rather NAME OF A FOLDER. In this case we will create 4 different directories. 
-Try yourself! mkdir NAME OF A FOLDER
-Computer will treat space as separating parameter. If you want (I discourage using space) then you should use this option.
-
-mkdir "folder 1"
-mkdir 'folder 2'
-mkdir folder\ 3
-mkdir "folder 4" "folder 5"
-mkdir -p "folder 6"/"folder 7"
-ls
 
 •	Creating a file
 Stay in the folder you are in right now.  What we will do now is redirect the output of ls command to a file.
