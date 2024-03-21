@@ -27,16 +27,23 @@ Terminal is just a tool to connect commands with the machine, just like a keyboa
 
 •	Basics of Linux command line
 
+Once you are connected to the server, first thing you see is a welcome message and this: 
+
+```
+username@servers-network-name: ~ $ # it is called prompt, that is the way computer telling you that “I am ready to take your instructions”. Bring it on.
+
+```
+
+Run command now. 
+
 First, we will find out where (which directory/folder) are we right now in our machine. 
 
-Run command:  
 ```
-pwd #Print Working Directory, very intuitive.
+pwd # Print Working Directory, very intuitive.
 
 ```
-Now you see two different things on the screen: 
-a) some weird:  username@servers-network-name: ~ $
-b) /home/YOURUSERNAME 
+
+you will see this: /home/YOURUSERNAME 
 
 So, a) is called prompt, that is the way computer informing you that “I am ready to take your instructions”.
 
