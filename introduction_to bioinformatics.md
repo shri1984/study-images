@@ -17,19 +17,23 @@ Option 1
 If you have power terminal (PowerShell) in your windows (type PowerShell in search bar), then things are easy. Open the power terminal and paste the command line you copied from labs.azure.com, type password (you won’t see any anything, it is hidden as they are passwords!!!!). You are in. 
 
 Option 2
-Download and install MobaXterm from here: https://mobaxterm.mobatek.net/download-home-edition.html and download installer version. Unzip the downloaded files. Follow the instructions and finish the process, make sure you install the program in the same folder.  You should be able to see the interface after starting the MobaXterm-application (please follow the basic_usage_of_mobaXterm.pdf. 
-Now you are in the server. Read the welcome message. 
+From MobaXterm also you can launch the ssh command and get into the server. 
 
-We also need to install filezilla, a file transferring GUI system. Download copy of that from here: https://filezilla-project.org/download.php?type=client and connect it to the server together. 
+We also need to install filezilla, a file transferring system for mac and windows and it comes with graphical user interface. Download your copy of that from here: https://filezilla-project.org/download.php?type=client and install. Then we need to prepare filezilla to connect to our server. we will do it togehter. First open the app and follow the document uploaded (configure filezilla) 
 
 •	History of terminal
-
-Terminal is just a tool to connect commands with the machine, just like a keyboard and mouse.  Simple!!! You have already experienced how most of the linux machine look like: there is no graphical user interface (GUI) between you and the server. GUI do exist for personal machines. We use ‘commands’ to communicate with the server/virtual machine.
+Probably Daniel might have already dwelled into this section. 
+Terminal is just a tool to connect commands with the machine, just like a keyboard and mouse.  Simple!!! You have already experienced how most of the linux machine look like: there is no graphical user interface (GUI) between you and the server. GUI do exist for personal machines. We use ‘commands’ to communicate with the server/virtual machine. A 'Command' is synonymous to 'tranfer a file from one folder to another folder in a ordinary computer where you have access to mouse or touchpad.
 
 •	Basics of Linux command line
 
 First, we will find out where (which directory/folder) are we right now in our machine. 
-Run command: pwd (Print Working Directory).
+
+Run command:  
+```
+pwd #Print Working Directory, very intuitive.
+
+```
 Now you see two different things on the screen: 
 a) some weird:  username@servers-network-name: ~ $
 b) /home/YOURUSERNAME 
