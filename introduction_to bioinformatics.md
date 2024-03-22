@@ -207,7 +207,7 @@ rmdir example_folder #removes a folder
 3.	rm command doesn’t move the files to thrash/recycle bin. It simply deletes file from the system with no way to recover it (it is possible the big servers).
 4.	If you are unsure try to use -i with rm command to enable interactive mode, so that you have second chance to think before you say YES. 
 
-### Plumbing work
+## Plumbing work
 You want to know how many lines there in text file are. It is easy if you use a graphical interface utility (or a text editor which gives you line number, example nano). But you want to know the line number quickly, you need to use command line to figure that out. 
 
 How many lines are there in combined.txt?
@@ -234,29 +234,48 @@ man mv
 man cp
 man wc 
 
-## How to do a multiple piping
-Example: sort combined.txt | uniq | wc -l
-Tell me what this above command will do? Use man to know what sort and uniq.
-When you have a file with multiple columns, and you want to cut a particular column, then use cut. Use man cut.   If you want to find something from a file, then use grep. 
+### How to do a multiple piping
+Example: 
+
+```
+sort combined.txt | uniq | wc -l
+
+```
+
+**Tell me what this above command do? Use man to know what sort and uniq.**
+
+
+### pick some thing from a file
+
+When you have a file with multiple columns, and you want to cut a particular column, then use 'cut'. Use man cut.  If you want to find something from a file, then use 'grep'. 
+
 grep ‘somethingyouwantto’ filename.txt
 
-Find and replace can be performed using sed.
+Find and replace can be performed using 'sed'.
 sed 's/findword/replaceword/' file.txt
 
 Type “linux cheat sheet” in the google you get 100s of list.  And try those commands
 
-•	File permissions
-In Linux everything is a file. Folders are files, files are files and external devices are files. All the files in linux system have file permissions. It says all about who can read and write and execute a file. Each file has different level of access restrictions.
-If you do ls -lh in a folder, 
-you see drwxrwxr-x on your screen. They tell you who have permission to use this folder and what purpose (reading, modifying/writing, executing).
+### File permissions
+In Linux everything is a file. Folders are files, files are files and external devices are files. All the files in linux system have file permissions. It says all about who can read and write and execute a file / program/comman. Each file has different level of access restrictions.
 
- 
+If you do 'ls -lh' in a folder 
+
+you see drwxrwxr-x on your screen. They tell you who have permission to use this folder and what purpose (reading, modifying/writing, executing a operation).
 
 Here are three types of access restrictions (from linux related webpages): 
-Permission	Action	chmod option
+
+| permission  | action | chmod_option|
+| ------------- | ------------- |----------|
+| Content Cell  | Content Cell  |          |
+| Content Cell  | Content Cell  |          |
+
+
+|Permission	Action	chmod_option
+ 
 read	(view) 	r or 4
-write	(edit) 	w or 2
-execute	(execute) 	x or 1
+|write	(edit) 	w or 2
+|execute	(execute) 	x or 1
 
 
 There are also three types of user restrictions: 
