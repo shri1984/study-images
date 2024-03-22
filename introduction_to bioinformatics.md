@@ -57,7 +57,7 @@ Mostl likely you will not see anything. Just an empty folder. Lets make some fol
 
 ## create a new folder inside the working directory
 
-We use 'mkdir' command to make directories.
+We use 'mkdir' command to make directories. Remember about shortcuts. this is useful when you executed certian command and you want to rerun, then use up nd down keys to get that command. Also tab is very useful to complete such as file name and folder you want to read or enter into. press TAB and then write first letter, it will show you lsit of files starting with that letter in that folder.
 
 Try all these commands after reading the manual
 mkdir test_1
@@ -311,23 +311,28 @@ First number related Owner, second number related group and 3rd number related t
   
 (from google)
 
-TO DO: 
+TR: 
 TRY out the commands and their usage: ps, top, htop, zcat, unzip, gzip, history. Find out what they do. These commands will give different information about the system and unzipping a xipped folder and so on. 
 
 
 ## Scripting
-Now we probably know many things about how the Linux and command line work. Now we will go for a next level called scripting. You already know little bit about scripting from data science part. Scripting is nothing but automatization of commands /instructions you need to run every now and then. 
 
-Scripting essentially uses shell, which is a microprocessor allows for an interactive or non-interactive command execution in combination with nano (my favorite text editor to create a new file containing set of instructions in a separate line. 
+Now we probably know many things about how the Linux and command line work. Now we will go for a next level called scripting. You already know little bit about scripting from data science part. Scripting is writing a set of instructions to computer.  
+
+Scripting essentially uses shell, which is a microprocessor allows for an interactive or non-interactive command execution in combination with nano (my favorite text editor to create a new file containing set of instructions in a separate lines). 
 
 Terminal is input output environment (a mean to talk to computer)
 
 Your terminal contains shell (an interface). A shell is a user interface for access to an operating system's services. 
 
-Now we will write a very small script using bash as interpreter (which is default in any unix based system, there are also python, perl and so on). 
+Now we will write a very small script using bash as interpreter (interprets commands to CPU) (which is default in any unix based system, there are also python, perl and so on). An interpreter is a computer program that directly executes instructions written in a programming such as bash.
 
-run: echo $SHELL
+run:
 
+````
+echo $SHELL
+
+```
 Write a small script: 
 
 Open nano
@@ -336,8 +341,10 @@ Type all small commands such as date, cal, ls in separate lines and save it as t
 There is small script uploaded in the bioinformatics section of the canvas which is related to the taking backup of a folder. 
 
 Variables
-Variables are the essence of programming. Variables allow a programmer to store data, alter and reuse them throughout the script. 
+Variables are the essence of programming. Variables allow a programmer to store data, alter and reuse them throughout the script.
+
 Check welcome.sh script and backup.sh script. 
 
-References for this exercise:
+**References for this exercise:
 Some part of this exercise comes from linux tutorials published by Linux (ubuntu) people. All resources in their tutorials are open source.
+**
