@@ -30,7 +30,7 @@ Terminal is just a tool to connect commands with the machine, just like a keyboa
 Once you are connected to the server, first thing you see is a welcome message and this: 
 
 ```
-username@servers-network-name: ~ $ # it is called prompt, that is the way computer telling you that “I am ready to take your instructions”. Bring it on.
+username@servers-network-name: ~ $       #it is called prompt, that is the way computer telling you that “I am ready to take your instructions”. Bring it on.
 
 ```
 
