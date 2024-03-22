@@ -278,22 +278,22 @@ There are also three types of user restrictions:
 |group	|----rwx---|
 |other	|-------rwx|
 
-•	Folder/Directory Permissions
-Directories have directory permissions. The directory permissions restrict different actions than with files or device nodes. 
-Permission	Action	chmod option
-read	(view contents, i.e. ls command) 	r or 4
-write	(create or remove files from dir) 	w or 2
-execute	(cd into directory) 	x or 1
+Directories have directory permissions. The directory permissions restrict different actions : 
+
 1.	read restricts or allows viewing the directories contents, i.e. ls command 
 2.	write restricts or allows creating new files or deleting files in the directory. (Caution: write access for a directory allows deleting of files in the directory even if the user does not have write permissions for the file!) 
 3.	execute restricts or allows changing into the directory, i.e. cd command
 
 Look into your folder and say how these permissions are organized? 
 
-Generally, owner of the file has permission to change the accessibility of file or folder. Another user who can override even the owner of the file is a ROOT user (su, sudo).  Briefly, root user is owner of the system. Root user is a super user (su) and executes commands as sudo. sudo is a safety net for super user not to commit any command without second thought. First user of the system is always a root. Then root can use discretion to empower other users to root level. Not all the users can become root user. Superuser power comes with super responsibilities. Super User has all the power in a system, even to destroy the system itself. 
-If you are owner of the file or folder, you should use chmod to change the ownership/sharing/or to impart selective permission.
- Type chmod, you will get help. 
+Generally, owner of the file has permission to change the accessibility of file or folder. Thats why if you go and try to do some operations on files and filders inside '/' , it will comoplain tht you dont have permission. Another user who can override even the owner of the file is a **ROOT** user (su, sudo). Briefly, root user is owner of the system. Root user is a super user (su) and executes commands as sudo. sudo is a safety net for super user not to commit any command without second thought. First user of the system is always a root. Root user is also administrator of the system. Root will decide the functinality of the system in terms of users and permisiion. Then root can use discretion to empower other users to root level. Not all the users can become root user. Superuser power comes with super responsibilities. Super User has all the power in a system, even to destroy the system itself. 
+
+If you are owner of the file or folder, you should use chmod to change the ownership/sharing/or to impart selective permission to other users to your folders or files. 
+
+Type 'chmod' you will get help. 
+
 chmod {options} filename
+
 Options	Definition
 u 	owner 
 g 	group 
@@ -312,11 +312,10 @@ First number related Owner, second number related group and 3rd number related t
 (from google)
 
 TO DO: 
-TRY out the commands and their usage: ps, top, htop, zcat, unzip, gzip, history. Find out what they do.
+TRY out the commands and their usage: ps, top, htop, zcat, unzip, gzip, history. Find out what they do. These commands will give different information about the system and unzipping a xipped folder and so on. 
 
 
-
-•	Scripting
+## Scripting
 Now we probably know many things about how the Linux and command line work. Now we will go for a next level called scripting. You already know little bit about scripting from data science part. Scripting is nothing but automatization of commands /instructions you need to run every now and then. 
 
 Scripting essentially uses shell, which is a microprocessor allows for an interactive or non-interactive command execution in combination with nano (my favorite text editor to create a new file containing set of instructions in a separate line. 
