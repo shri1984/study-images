@@ -267,8 +267,9 @@ Here are three types of access restrictions (from linux related webpages):
 
 | permission  | action | chmod_option|
 | ------------- | ------------- |----------|
-| Content Cell  | Content Cell  |          |
-| Content Cell  | Content Cell  |          |
+| read (view)  | r  |      4    |
+| write (edit)  |w  |      2    |
+| execute (command)|x|1|
 
 
 |Permission	Action	chmod_option
