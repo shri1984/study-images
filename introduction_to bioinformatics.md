@@ -271,19 +271,12 @@ Here are three types of access restrictions (from linux related webpages):
 | write (edit)  |w  |      2    |
 | execute (command)|x|1|
 
-
-|Permission	Action	chmod_option
- 
-read	(view) 	r or 4
-|write	(edit) 	w or 2
-|execute	(execute) 	x or 1
-
-
 There are also three types of user restrictions: 
-User	ls output
-owner	-rwx------
-group	----rwx---
-other	-------rwx
+|User |	ls output|
+|-----|----------|
+|owner	| rwx------|
+|group	|----rwx---|
+|other	|-------rwx|
 
 •	Folder/Directory Permissions
 Directories have directory permissions. The directory permissions restrict different actions than with files or device nodes. 
