@@ -1,6 +1,6 @@
 ## GENETIC DATABASES
 
-##### Learning outcome from this exercise
+#### Learning outcome from this exercise
 
 1. What are genetic databases?
 2.	To know what different genetic databases are there and how to access them (NCBI , BOLD, KEGG etc)
@@ -28,7 +28,7 @@ Now Open downloaded file using a text editor.  In windows there is default text 
 Now you have COI sequences belong to different genus of salmonids/your species or family of interest. 
 As I said earlier, you cna search anything in NCBI. try gene names : example p53
 
-## Using BLAST (basic local alignment search tool) (online version)
+#### Using BLAST (basic local alignment search tool) (online version)
 The BLAST is the most famous and powerful application of NCBI.  As the name suggests, it is a match searching tool. Locate the tab in NCBI webpage where the blast application is shown.  Please look into various blast modules. We will go one by one and discuss. 
 This is how whole thing works:  Just feed a “unknown” nucleotide or protein sequence to the blast search box and do blast’ing (important: choose right blast module, based on search molecule type and your expectation). It will give you possible hit to your sequence with statistical support (E-VALUE and query coverage). It finds the similarities between sequences you provided (which is 'query'), and sequences stored in the database (which is 'subject'). Blast also calculates the statistical significance of that comparison (E-value, which is like p-value, tells how random the query matches with the subject).  
 Let’s try few unknown sequences in blast and try to find the possible identity of those unknown sequences. I have stored that file in folder called 'nucelotides-student.fasta'. 
@@ -40,7 +40,7 @@ You get a table as output. Now we see what’s there on that table.
 2.	Try to set the parameters if needed. Generally, default settings work better in most of the situations. So, leave them alone if you don’t have any compelling reason to change them or you know what you are doing. 
 One disadvantage with online **BLASTing** is waiting time. Longer (and in large numbers) the sequence (s) and larger the database you are comparing against, more it takes to finish the search operation. Time taken to finish a search job is proportional to size of the database you are seraching against. It also depends on the time of the day and nature of the job you are using the BLAST. So, what is the solution if you have lot of sequences? Because of these reasons it is convenient to use a local blast when you have lot of sequences to process. We will use a local blast application in our system. Using **local blast**, we can speed up the BLAST analysis and get more customised result table too. We can make our own blast commands according to our desired filtering parameters. 
 
- ## Linux based command line BLAST (Standalone BLAST)
+ #### Linux based command line BLAST (Standalone BLAST)
 
 This simulates exactly what you get in online version. 
 
@@ -104,7 +104,7 @@ qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bits
 11. evalue expect value
 12. bitscore bit score
 
-### Field application of BLASTing
+#### Field application of BLASTing
 1. Identification of species
 2. Comaprative genomics : comparing the sequences for commonality and divergence
 3. Barcoding of an organism
@@ -125,7 +125,7 @@ Let’s say you have DNA from an unknown sample (fish or plants or DNA extracted
 
 (image courtesy: https://www.researchgate.net/figure/Some-of-the-foods-most-susceptible-to-food-fraud_fig1_349573973)
 
-### Exploration of BOLD system 
+#### Exploration of BOLD system 
 Go to ***https://www.boldsystems.org/index.php***
 What is the largest group of animals having barcode information and from where they are reported the most?  
 How much of these barcode records come from Norway? 
