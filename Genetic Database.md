@@ -123,6 +123,7 @@ Let’s say you have DNA from an unknown sample (fish or plants or DNA extracted
  
  ![Some-of-the-foods-most-susceptible-to-food-fraud](https://github.com/shri1984/study-images/assets/58723191/5c14145d-bdfa-46fc-ba99-40076ab70927)
 
+(image courtesy: https://www.researchgate.net/figure/Some-of-the-foods-most-susceptible-to-food-fraud)
 
 COI is the standard genetic marker used in DNA barcoding. 
 Exploration of BOLD system 
