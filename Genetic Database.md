@@ -1,4 +1,3 @@
-<img width="565" alt="LAKES_ART_02_Environmental_DNA_Barcoding" src="https://github.com/shri1984/study-images/assets/58723191/c9991e52-2da6-4925-b2ed-64a9383c888d"> 
 ## GENETIC DATABASES
 
 ##### Learning outcome from this exercise
@@ -110,24 +109,20 @@ qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bits
 2. Comaprative genomics : comparing the sequences for commonality and divergence
 3. Barcoding of an organism
    
-COI is used as a genetic marker to barcode the species. Barcode is the same thing you see on a packet or box in the shop. 
+COI from mitochondria is used as a genetic marker to barcode the species. Barcode is the same thing you see on a packet or box in the shop. 
 
 <img width="565" alt="LAKES_ART_02_Environmental_DNA_Barcoding" src="https://github.com/shri1984/study-images/assets/58723191/3e68c8d1-17cd-4211-8915-0c12cd50e251">
 
-
-
+Once you do the barcoding of that species that remains with that species for ever. In future if you sequence COI region from a source DNA, you can always try to identify the compostion of your DNA collection using the barcode database, such as https://boldsystems.org. 
  
-Let’s say you have DNA from an unknown sample. You want to find out what species this DNA belongs. Simple way is to amplify COI region, sequence it and do a database search. You “may” find the answer. Then submit the sequence to appropriate database and that piece sequence will remain as barcode for that species for ever.
+Let’s say you have DNA from an unknown sample (fish or plants or DNA extracted from water or soil or gut etc), and you want to find out what species this DNA belongs. Simple way is to amplify COI region, sequence it and do a database search such as ***https://boldsystems.org***. You “may” find the answer by matching your 'unknown' sequence to the exisiting database. You can also submit the sequences to the databases, so that other people can use the information. However https://boldsystems.org is curated database and here sequence submitter need to first taxonomically identify the species and amplify 500bp (minimum) COI region and submit the sequences with metadata for curation of barcode sequences. If accepted, it will remain as permanent barcode for that species. This collection of sequences will be used as database to identify unknown COI sequences.
 
-
-
-
-
-Food safety and quality of the food are of major concern. They play an important role in public opinion especially when food alterations or food adulterations get media publicity. There is an increasing demand for the improve food quality by identifying the commercial frauds. DNA barcoding is one of the few means to identify fish/meat sold in retail both due to insufficient labeling requirements or rampant mislabeling of the product or willful mixing of meat from other animals. However, success of 
+4. Inspecting Food safety and quality of the food using DNA barcoding technology  They play an important role in public opinion especially when food alterations or food adulterations get media publicity. There is an increasing demand for the improve food quality by identifying the commercial frauds. DNA barcoding is one of the few means to identify fish/meat sold in retail both due to insufficient labeling requirements or rampant mislabeling of the product or willful mixing of meat from other animals. However, success of 
  the DNA barcode depends on the presence of highly curated sequence database. BOLDSYSTEMS (https://www.boldsystems.org) is one of them. COI is the standard genetic marker used in DNA barcoding technique.
 
  
- 
+ ![Some-of-the-foods-most-susceptible-to-food-fraud](https://github.com/shri1984/study-images/assets/58723191/5c14145d-bdfa-46fc-ba99-40076ab70927)
+
 
 COI is the standard genetic marker used in DNA barcoding. 
 Exploration of BOLD system 
