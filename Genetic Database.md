@@ -1,76 +1,77 @@
  
-##GENETIC DATABASES
+## GENETIC DATABASES
 
-•	Learning outcome from this exercise
-1.	To know what different genetic databases are there and how to access them (NCBI , BOLD, KEGG etc)
-2.	To know how to download the nucleotide/protein data from databases. 
-3.	What is the format of nucleotide or protein data?
-4.	How to identify unknown sequences through similarity search tools.
+##### Learning outcome from this exercise
+
+1. What are genetic databases?
+2.	To know what different genetic databases are there and how to access them (NCBI , BOLD, KEGG etc)
+3.	To know how to download the nucleotide/protein data from databases
+4.	What is the format of nucleotide or protein data?
+5.	How to identify unknown sequences through similarity search tools (BLAST like tools)
  
-Genetic database is one or more sets of genetic data stored together with a software to retrieve, supplement and extract information from them. In this exercise, we will focus on the genetic database called NCBI (National Center for Biotechnology Information). In the database, data are either stored in physical hard drives in a location or many locations. 
-
-We will quickly browse couple of databases such as KEGG and NCBI. We will dive deep into NCBI in a while.
+Genetic database is one or more sets of genetic data stored together with a software to retrieve, supplement and extract information from them. In this exercise, we will mainly focus on NCBI (National Center for Biotechnology Information). We will quickly browse couple of databases such as KEGG and NCBI. We will dive deep into NCBI in a while.
 
 Let´s start using the NCBI browser to retrieve information. First go to the website: https://www.ncbi.nlm.nih.gov. Look at the home page. Home page has lot of  information, and it is comprehensive: submitting, downloading, different databases (nucleotide, protein, etc…), different software, literature information.  We will spend some time on browsing.
 
-•	Downloading the sequence information
-The NCBI is very user-friendly database and data search platform. All the basic operations are meant for traditional biologists. So, anyone with minimum biology knowledge can go in there and retrieve information. The only condition is that as a user you need to know what you want, which depends on the objective of your question. We will retrieve COI (cytochrome c oxidase subunit I) sequences of some salmonids (family Salmonidae), or you can choose the species you want. 
+#### Downloading the sequence information
+The NCBI is very user-friendly database and genetic data search platform. All the basic operations are meant for traditional biologists, who are not very sauvy with coding and other advanced computation skills. So, anyone with minimum biology knowledge can go in there and retrieve information. The only condition is that as a user you need to know what you want, which is depend on the question. We will retrieve COI (cytochrome c oxidase subunit I) sequences of some salmonids (family Salmonidae), or you can choose the species you want (or shark). 
 
-On top of the web page there is a search bar to search information about the species of your interest. If you select all the databases in the search menu and type the scientific name (common name do work sometime). You will be directed to a page where the information about your species of interest is available all possible databases.  This is one way to find desired information for your species.
+On top of the web page there is a search bar to search information about the species of your interest. If you select 'all databases' in the search menu and type the scientific name (common name do work sometimes), if you are interested in a single species. But to address the question like above, you may need to write 'salmonidae COI'. You will be directed to a page where the information about your species of interest is available from all possible databases (including peer reviewed literatures).  This is one way to find desired information for your species.
 
-Another way is by choosing specific database line one below. 
-Use genus species or family or any other taxonomic classification information along with the gene name (COI) to find the sequences. Now you choose nucleotide instead of all the database example: search term could be salmonidae  coi
+Another way is by choosing specific database. 
+Use genus species or family or any other taxonomic classification information along with the gene name (COI) to find the sequences. Now you choose nucleotide instead of all the database example: search term could be 'salmonidae coi'
 
-1. Go through the result table and choose few sequences belong to different species belong to Salmonidae family
+1. Go through the result table and choose few sequences belong to different species from Salmonidae family
 2. Download by clicking right corner send to >complete record>file>fasta>download.
- Now sequences are downloaded in the fasta format to your local system (your laptop). Generally, it downloads to folder Downloads. 
+Now sequences are downloaded in the fasta format to your local system (your laptop). Generally, it downloads to folder Downloads (depending on your browser setting). 
  
-Now Open downloaded file using a text editor.  In windows there is default text editor called notepad. But it is not a best text editor. Rather you can download notepad++ (https://notepad-plus-plus.org/downloads/). macOS users can download BBedit (https://www.barebones.com/products/bbedit/).
+Now Open downloaded file using a text editor.  In windows there is default text editor called notepad. But it is not a best text editor. Rather you can download notepad++ (https://notepad-plus-plus.org/downloads/). macOS users can download BBedit (https://www.barebones.com/products/bbedit/). Just check how fasta file looks. 
 Now you have COI sequences belong to different genus of salmonids/your species or family of interest. 
-If you have time just, try different genes. Example: Severe acute respiratory syndrome coronavirus 2 spike protein
+As I said earlier, you cna search anything in NCBI. try gene names : example p53
 
-Using blast (basic local alignment search tool) (online version)
-The BLAST is the most famous and powerful application of NCBI.  As the name suggests, it is a match searching tool. Locate the tab in NCBI webpage where the blast application is shown. 
-Please look into various blast modules. We will go one by one and discuss.  invalidating
-This is how whole thing works:  Just feed a “unknown” nucleotide or protein sequence to the blast search box and do blast’ing (important: choose right blast module, based on search molecule type and your expectation). It will give you possible hit to your sequence with statistical support (E-VALUE and query coverage).  It finds the similarities between sequences you provided (which is query), and sequences stored in the database (which is subject).  Blast also calculates the statistical significance of that comparison (E-value, which is like p-value, tells how random the query matches with the subject).  Let’s try few unknown sequences in blast and try to find the possible identity of those unknown sequences.  I have stored that file in folder called practical2_nucelotides-student.fasta
+## Using BLAST (basic local alignment search tool) (online version)
+The BLAST is the most famous and powerful application of NCBI.  As the name suggests, it is a match searching tool. Locate the tab in NCBI webpage where the blast application is shown.  Please look into various blast modules. We will go one by one and discuss. 
+This is how whole thing works:  Just feed a “unknown” nucleotide or protein sequence to the blast search box and do blast’ing (important: choose right blast module, based on search molecule type and your expectation). It will give you possible hit to your sequence with statistical support (E-VALUE and query coverage). It finds the similarities between sequences you provided (which is 'query'), and sequences stored in the database (which is 'subject'). Blast also calculates the statistical significance of that comparison (E-value, which is like p-value, tells how random the query matches with the subject).  
+Let’s try few unknown sequences in blast and try to find the possible identity of those unknown sequences. I have stored that file in folder called 'nucelotides-student.fasta'. 
+
 You get a table as output. Now we see what’s there on that table. 
 
- Tips for search sequences: 
+##### Tips for search sequences: 
 1.	Choose right blast module based on the type of sequence input and importantly, your objective
 2.	Try to set the parameters if needed. Generally, default settings work better in most of the situations. So, leave them alone if you don’t have any compelling reason to change them or you know what you are doing. 
-One disadvantage with online BLASTing is waiting time. Longer (and in large numbers) the sequence (s) and larger the database you are comparing against, more it takes to finish the search operation. It also depends on the time of the day you are using the Blast. NCBI servers located in USA. Hence it is obliged to serve national users first. So, what is the solution if you have lot of sequences?
+One disadvantage with online **BLASTing** is waiting time. Longer (and in large numbers) the sequence (s) and larger the database you are comparing against, more it takes to finish the search operation. Time taken to finish a search job is proportional to size of the database you are seraching against. It also depends on the time of the day and nature of the job you are using the BLAST. So, what is the solution if you have lot of sequences? Because of these reasons it is convenient to use a local blast when you have lot of sequences to process. We will use a local blast application in our system. Using **local blast**, we can speed up the BLAST analysis and get more customised result table too. We can make our own blast commands according to our desired filtering parameters. 
 
-Because of above reasons it is convenient to use a local blast when you have lot of sequence to identify.   We will use a local blast application in our system. Using local blast, we can get more customised result table too. We can construct our own blast commands according to our desired filtering parameters. 
+ ## Linux based command line BLAST (Standalone BLAST)
 
- 2.4 Linux based command line BLAST (Standalone blast)
+This simulates exactly what you get in online version. 
 
 What do you need,
 1.	NCBI BLAST+ command line tool installed
-2.	Data base to search against
+2.	Data base to search against (nucleotide or protein)
 3.	Query sequence(s)
 
-You don’t do this in this practical. I have done installation part for you:
-Install NCBI BLAST+: 
+**You don’t do installation and database generation in this practical. I have done installation part for you***
+###### Install NCBI BLAST+: 
 In linux OS:  apt-get ncbi-blast+ or conda install 
 It will download the precompiled latest version of blast+ tools to your system. 
 Or 
 https://www.ncbi.nlm.nih.gov/books/NBK52640/
 go to this link to install in Linux. 
 
-Prepare database
-Don’t do this either (if you want to try, go to blast manual on how to make blast database). I made this for you. Database is the one you blast your query against. 
-I choose database which teleost specific. 
+###### Prepare database
+Don’t do this either (if you want to try, go to blast manual on how to make blast database). I made this for you. Database is the one you blast your query against. I choose database which is 'teleost' specific. 
 Go to FTP server of the NCBI and look for premade blast database. 
 https://ftp.ncbi.nlm.nih.gov/blast/db/
  or 
-download nucleotide or protein (nr) database to your system and make database locally. 
+download nucleotide or protein (nr) database in fasta format to your system and build database locally using this command : ***makeblastdb*** to make your own database in future. Or you cna download premade database from above link and then filter the dataabse for your study group.
 
 Tip:
 1.	Basis to download premade database is to filter the sequences for desired family or genus or so on. You may not need full database. Full database is very huge in disk size.
 2.	Filtering is not easy if you download just the sequences in fasta instead of premade database.
 
-Just type blastn in the command line. You get some warning related to blastn. If , so then you are good to launch. 
-Now we know how the command line system works in a Linux OS. We will utilise that knowledge here. To run a local blast.  We can get exactly same output (like one from web based) in this method. But it  lacks some graphical features. 
+Just type ****blastn -h*****  in the command line. if it is all good then you should see help message for ***blastn***
+
+We know how the command line system works in a Linux OS from our previous practicals. We will utilise that knowledge here to run a local blast. We can get exactly same output (like one from web based) in this method. Only difference beyween web and command line based application of blast is local blast output lacks lacks graphical features. 
 We will write the blastn script together (NB! there are spaces between the different parameters)
 blastn  -query name of the query file -db  path_to_database/nt_teleost_16112020 -max_target_seqs 1 -outfmt 6 -out results2.txt -num_threads 1 -evalue 0.001
 
