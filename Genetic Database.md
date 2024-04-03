@@ -78,7 +78,7 @@ We will write the blastn script together (NB! there are spaces between the diffe
 ´´´
 blastn  -query name of the query file -db  path_to_database/nt_teleost_16112020 -max_target_seqs 1 -outfmt 6 -out results2.txt -num_threads 1 -evalue 0.001
 
-´´´´
+´´´
 Also try blastp. 
 
 Default column names (look into online help or terminal help:
