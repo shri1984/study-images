@@ -109,7 +109,7 @@ qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bits
 2. Comaprative genomics : comparing the sequences for commonality and divergence
 3. Barcoding of an organism
    
-COI from mitochondria is used as a genetic marker to barcode the species. Barcode is the same thing you see on a packet or box in the shop. 
+COI from mitochondria is used as a genetic marker to barcode the species. Barcode is the same thing you see on a packet or box in the shop. more detail about the barcode projects here: ***https://phe.rockefeller.edu/barcode/index.php***
 
 <img width="565" alt="LAKES_ART_02_Environmental_DNA_Barcoding" src="https://github.com/shri1984/study-images/assets/58723191/3e68c8d1-17cd-4211-8915-0c12cd50e251">
 
@@ -123,13 +123,14 @@ Let’s say you have DNA from an unknown sample (fish or plants or DNA extracted
  
  ![Some-of-the-foods-most-susceptible-to-food-fraud](https://github.com/shri1984/study-images/assets/58723191/5c14145d-bdfa-46fc-ba99-40076ab70927)
 
-(image courtesy: https://www.researchgate.net/figure/Some-of-the-foods-most-susceptible-to-food-fraud)
+(image courtesy: https://www.researchgate.net/figure/Some-of-the-foods-most-susceptible-to-food-fraud_fig1_349573973)
 
-COI is the standard genetic marker used in DNA barcoding. 
-Exploration of BOLD system 
-Go to https://www.boldsystems.org/index.php
-What is the largest group of animals having barcode information and from where they are reported the most?  How much of these records come from Norway? 
+### Exploration of BOLD system 
+Go to ***https://www.boldsystems.org/index.php***
+What is the largest group of animals having barcode information and from where they are reported the most?  
+How much of these barcode records come from Norway? 
 To get that information go to taxonomy tab and start looking into different groups animals and numbers of available records are in brackets. Press the links associated with group and you will get lot of metadata about the group. 
-Application of BOLD systems 
-The sequences (databasesearch. fasta) come from a publication where the authors studied whether sushi restaurant goers in NYC eat any IUCN red listed (https://www.iucnredlist.org)  Tuna species, as many times fish species (not only tuna) are either mislabelled purposefully or lack of taxonomical knowledge. We will identify the species of Tuna and deliberate the status of these species in IUCN red list (https://www.iucnredlist.org) using BOLD system and if time permits, we can also try them in NCBI web. 
-We need to select ‘identification’ tab to do blast like search (https://www.boldsystems.org/index.php/IDS_OpenIdEngine).  Copy and paste (one by one or whole sequence set, it needs login account)). Choose species level barcode information as database. Discuss the result from BOLD identification analysis.
+
+Now we will try to use BOLD systems
+The sequences (databasesearch.fasta) come from a publication where the authors studied whether sushi restaurant goers in NYC eat any IUCN red listed (https://www.iucnredlist.org) tuna species, as many times fish species (not only tuna) are either mislabelled purposefully or lack of taxonomical knowledge. We will identify the species of Tuna and deliberate the status of these species in IUCN red list (https://www.iucnredlist.org) using BOLD system and if time permits, we can also try them in NCBI web. 
+We need to select ‘identification’ tab to do blast like search (https://www.boldsystems.org/index.php/IDS_OpenIdEngine). Copy and paste (one by one or whole sequence set, it needs login account)). Choose species level barcode information in database. Discuss the result from BOLD identification analysis.
