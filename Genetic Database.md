@@ -75,10 +75,10 @@ We know how the command line system works in a Linux OS from our previous practi
 
 We will write the blastn script together (NB! there are spaces between the different parameters)
 
-´´´
+```
 blastn  -query name of the query file -db  path_to_database/nt_teleost_16112020 -max_target_seqs 1 -outfmt 6 -out results2.txt -num_threads 1 -evalue 0.001
 
-´´´
+```
 Also try blastp. 
 
 Default column names (look into online help or terminal help:
