@@ -69,12 +69,16 @@ Tip:
 1.	Basis to download premade database is to filter the sequences for desired family or genus or so on. You may not need full database. Full database is very huge in disk size.
 2.	Filtering is not easy if you download just the sequences in fasta instead of premade database.
 
-Just type ****blastn -h*****  in the command line. if it is all good then you should see help message for ***blastn***
+Just type ****blastn -h****  in the command line. if it is all good then you should see help message for ***blastn***
 
-We know how the command line system works in a Linux OS from our previous practicals. We will utilise that knowledge here to run a local blast. We can get exactly same output (like one from web based) in this method. Only difference beyween web and command line based application of blast is local blast output lacks lacks graphical features. 
+We know how the command line system works in a Linux OS from our previous practicals. We will utilise that knowledge here to run a local blast. We can get exactly same output (like one from web based) in this method. Only difference beyween web and command line based application of blast is local blast output lacks lacks graphical features. In the help dipsay of above command shos you what parameters one should use inroder to use ***blastn***. Parameters in a command line application are instructions 
+
 We will write the blastn script together (NB! there are spaces between the different parameters)
+
+´´´
 blastn  -query name of the query file -db  path_to_database/nt_teleost_16112020 -max_target_seqs 1 -outfmt 6 -out results2.txt -num_threads 1 -evalue 0.001
 
+´´´´
 Also try blastp. 
 
 Default column names (look into online help or terminal help:
