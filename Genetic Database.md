@@ -1,4 +1,4 @@
- 
+<img width="565" alt="LAKES_ART_02_Environmental_DNA_Barcoding" src="https://github.com/shri1984/study-images/assets/58723191/c9991e52-2da6-4925-b2ed-64a9383c888d"> 
 ## GENETIC DATABASES
 
 ##### Learning outcome from this exercise
@@ -71,21 +71,24 @@ Tip:
 
 Just type ****blastn -h****  in the command line. if it is all good then you should see help message for ***blastn***
 
-We know how the command line system works in a Linux OS from our previous practicals. We will utilise that knowledge here to run a local blast. We can get exactly same output (like one from web based) in this method. Only difference beyween web and command line based application of blast is local blast output lacks lacks graphical features. In the help dipsay of above command shos you what parameters one should use inroder to use ***blastn***. Parameters in a command line application are instructions 
+We know how the command line system works in a Linux OS from our previous practicals. We will utilise that knowledge here to run a local blast. We can get exactly same output (like one from web based) in this method. Only difference beyween web and command line based application of blast is local blast output lacks lacks graphical features. In the help dipsay of above command shos you what ****parameters**** one should use inroder to use ***blastn***. ***Parameters*** (also called command line arguments) in a command line application are instructions: specify information that the command needs in order to run. example ls is command name and -a flag (parameter), if you use this -a along with 'ls' then it lists the files within that folder.
+
+Befoew we running script, try to see the conent of the fasta file you are trying to run as query. 
 
 We will write the blastn script together (NB! there are spaces between the different parameters)
 
 ```
-blastn  -query name of the query file -db  path_to_database/nt_teleost_16112020 -max_target_seqs 1 -outfmt 6 -out results2.txt -num_threads 1 -evalue 0.001
+blastn  -query name of the query file -db  path_to_database/nt_teleost_16112020 -max_target_seqs 1 -outfmt 6 -out results2.txt -num_threads 1 -evalue 0.001 #findout what each parameters do in this command.
+
+-outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore" # this way you can customise the output file
 
 ```
-Also try blastp. 
+Also try ***blastp -h*** and run ***blastp*** related analysis. 
 
-Default column names (look into online help or terminal help:
--outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore"
+Default column names (-outfmt 6) (look into online help or terminal help:
 
-Now use this parameter in the same command. 
 -outfmt "6 qseqid qlen qaccver sseqid slen saccver sacc stitle salltitles length pident nident mismatch gapopen qstart qend sstart send evalue bitscore qcovs qcovhsp"
+
 BLASTn tabular output format 6
 Column headers:
 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore
@@ -102,10 +105,23 @@ qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bits
 11. evalue expect value
 12. bitscore bit score
 
-Field application of Blast and blast like tools
+### Field application of BLASTing
+1. Identification of species
+2. Comaprative genomics : comparing the sequences for commonality and divergence
+3. Barcoding of an organism
+   
 COI is used as a genetic marker to barcode the species. Barcode is the same thing you see on a packet or box in the shop. 
+
+<img width="565" alt="LAKES_ART_02_Environmental_DNA_Barcoding" src="https://github.com/shri1984/study-images/assets/58723191/3e68c8d1-17cd-4211-8915-0c12cd50e251">
+
+
+
  
 Let’s say you have DNA from an unknown sample. You want to find out what species this DNA belongs. Simple way is to amplify COI region, sequence it and do a database search. You “may” find the answer. Then submit the sequence to appropriate database and that piece sequence will remain as barcode for that species for ever.
+
+
+
+
 
 Food safety and quality of the food are of major concern. They play an important role in public opinion especially when food alterations or food adulterations get media publicity. There is an increasing demand for the improve food quality by identifying the commercial frauds. DNA barcoding is one of the few means to identify fish/meat sold in retail both due to insufficient labeling requirements or rampant mislabeling of the product or willful mixing of meat from other animals. However, success of 
  the DNA barcode depends on the presence of highly curated sequence database. BOLDSYSTEMS (https://www.boldsystems.org) is one of them. COI is the standard genetic marker used in DNA barcoding technique.
