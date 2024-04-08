@@ -103,25 +103,21 @@ alignmuscle  <- msa(mysequencefile,method = "Muscle")
 
 align_format <- msaConvert(alignmuscle, type= "bios2mds::align")
 
+you can write alignment data to a file instead of keeping it in an R object, use
 
+```
+export.fasta(alignmuscle, outfile = "myAlignment.fasta", ncol = 60, open = "w")
 
+```
 
-export.fasta(alignmuscle, outfile = "myAlignment.txt", ncol = 60, open = "w")
+Now open the file myAlignment.fasta in bbedit and see the content. You see there is string of NAs at the end of each fasta sequence. It is a bug or artefact. we will remove them manually. 
 
+If ypu want to see the part of alignment , use function ggmsa from ggmsa package. 
 
-sink("myAlignment.txt") ## it will send R output to a textt file
-print(alignmuscle, show="complete") ## it will write results of object alignmuscle
-sink() # making of file is finished with this command
+```
+ggmsa(protein_sequences, 300, 350, color = "Clustal", font = "DroidSansMono", char_width = 0.5, seq_name = TRUE ) # see alignment in coliurful format.
 
-###
-
-
-ggmsa(protein_sequences, 300, 350, color = "Clustal", font = "DroidSansMono", char_width = 0.5, seq_name = TRUE )
-
-
-
-
-------------------------------------------------------------------------
+```
 
 Once you are done with alignment, next step is making the phylogenetic
 tree. This follwing function converts a multiple sequence alignment
@@ -129,7 +125,7 @@ object to formats used in other sequence analysis packages. Benefit of
 this is that you can directly proceed to other packages without reading
 the input again.
 
-    alignmentfish <- msaConvert(alignmuscle, type= "bios2mds::align")
+    alignmentfish <- msaConvert(alignmuscle, type= "phangorn::phyDat")
 
 optional: you may want to write alignment file to hard disk use
 following command and use it someother non R based programs.
