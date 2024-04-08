@@ -73,13 +73,13 @@ needs to be downloaded using **Bioconductor**. Type ***“msa r package”*** in
 google and find relevant bioconductor package. Read relevant information
 about how to download msa. First you may need to download package downloader called **bioconductor**
 
-´´´
+```
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
 BiocManager::install("msa")
 
-´´´
+```
 
 
     #load packages
