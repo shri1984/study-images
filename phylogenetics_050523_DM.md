@@ -4,21 +4,19 @@
 
 **1)** To learn the principle of phylogenetic tree construction
 
-**2)** Constructing a phylogenetic tree in R
+**2)** Steps in building a basic phylogenetic tree
+
+**3)** Constructing a phylogenetic tree in R
 
 # 1. Principle of tree construction
 
-We will do a fun exercise before we do a real phylogenetic tree
-construction. Can you place these new organisms in order? And give your
-rationale for your placement of that organism in this tree.
+We will do a fun exercise before we do a real phylogenetic tree construction. Can you place these new organisms in order? And give your rationale for your placement of that organism in this tree.
 
 ![](https://raw.githubusercontent.com/shri1984/study-images/main/Picture1.jpg?token=GHSAT0AAAAAACCFFFMC5RONLSSBPRYSKJBGZCUWWBQ)
 
 ### Building a phylogenetic tree using some anatomical characters
 
-Table below contains charatcters to make our tree. + indicates presence
-and 0 represents absence. This data taken from Principles of biology by
-Robert Bear (table from khan academy) with some modifications.
+Table below contains charatcters to make our tree. + indicates presence and 0 represents absence. This data taken from Principles of biology by Robert Bear (table from khan academy) with some modifications.
 
 ![](https://raw.githubusercontent.com/shri1984/study-images/main/Screen%20Shot%202023-05-03%20at%2012.23.01.png?token=GHSAT0AAAAAACCFFFMDFNA5P5PWHFBIYVHCZCUWUQQ)
 
