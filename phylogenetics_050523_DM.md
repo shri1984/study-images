@@ -20,13 +20,9 @@ Table below contains charatcters to make our tree. + indicates presence and 0 re
 
 ![](https://raw.githubusercontent.com/shri1984/study-images/main/Screen%20Shot%202023-05-03%20at%2012.23.01.png?token=GHSAT0AAAAAACCFFFMDFNA5P5PWHFBIYVHCZCUWUQQ)
 
-One important thing we should know from above table is what forms the
-ancestral trait, and which are derived traits. This is important to make
-a tree based on characters. An ancestral trait is what we think was
-present in the common ancestor of the species of interest. Also, if the
-trait is present only in the outgroup you can call it ancestral trait. A
-derived trait is a trait or character that appears somewhere on a
-lineage descended from common ancestor.
+One important thing we should know from above table is what forms the ancestral trait, and which are derived traits. This is important to make a tree based on characters. An ancestral trait is what we think was
+present in the recent common ancestor of the species of interest. Also, if the trait is present only in the outgroup you can call it ancestral trait. A derived trait is a trait or character that appears somewhere on a
+lineage descended from recent common ancestor.
 
 We will start building a tree now. Lampery lacks all the traits listed
 in the table. Hence we can assume that ancestors for these group of
