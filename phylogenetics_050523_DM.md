@@ -68,7 +68,7 @@ unpredictable.
 ## 1. Install or load R packages
 
 Some of the packages (phangorn, tinytex, and bios2mds) can be directly
-downloadable from R studio “packages” tab. However, **msa package**
+downloadable from R studio “packages” tab. However, **msa package** and **ggmsa**
 needs to be downloaded using **Bioconductor**. Type ***“msa r package”*** in
 google and find relevant bioconductor package. Read relevant information
 about how to download msa. First you may need to download package downloader called **bioconductor**
@@ -79,99 +79,47 @@ if (!require("BiocManager", quietly = TRUE))
 
 BiocManager::install("msa")
 
+BiocManager::install("ggmsa")
+
 ```
+#load packages
+library(msa) 
+library(bios2mds) 
+library(phangorn) 
+library(ggplot2)
 
+# Alignment of nucleotide sequences
 
-    #load packages
-    library(msa) 
-    library(bios2mds) 
-    library(phangorn) 
-## 2. Alignment of nucleotide sequences
+## Read sequences in fasta format into msa (Multiple Sequence Alignment) algorithm
 
-### 2.1 read sequences in fasta format into msa
+mysequencefile <- readDNAStringSet("phylogenetics_tree.fasta", format = "fasta") 
 
-    mysequencefile <-("phylogenetics_tree.fasta", format = "fasta") 
-
-### 2.2 run multiple alignemnt analysis using `muscle` program
+### Run multiple alignemnt analysis using `muscle` program in msa
 
 This following step can lot of time, depending on number of sequences
 and length. Here it will go fast.
 
-    alignmuscle  <- msa(mysequencefile,method = "Muscle") 
+alignmuscle  <- msa(mysequencefile,method = "Muscle")
 
-The following step is optional. The frame of reference for aligned
-sequences is static (and already defined), so manipulation of these
-objects is confined to be non-destructive. This means that the aligned
-sequence objects contain properties to mask ranges of rows and columns
-on the original sequence. These masks are then respected by methods that
-manipulate and display the objects (such as tree building algorithm),
-allowing the user to remove or keep columns and rows without
-invalidating the original alignment. Follwing function will do this. We
-will try to mask first 10 bases of alignment.
+align_format <- msaConvert(alignmuscle, type= "bios2mds::align")
 
-#### mask sequences
 
-    myMaskedAlignment <- alignmuscle #rename object  alignmuscle
-    colM <- IRanges(start=1, end=10) #select ranges to mask
-    colmask(myMaskedAlignment) <- colM #rename object colM
-    myMaskedAlignment # view object with masked sequences
 
-The result for masking is written to a pdf file.
 
-If you want to see alignments look pretty with different colours for
-different bases as in some GUI based programs. We try one simple script,
-there are lot of options in `msaPrettyPrint` function.
+export.fasta(alignmuscle, outfile = "myAlignment.txt", ncol = 60, open = "w")
 
-    msaPrettyPrint(alignmuscle, output="pdf", y=c(1, 633),
-                   subset=c(1:6), showNames="none", showLogo="top",
-                   logoColors="rasmol", shadingMode="similar",
-                   showLegend=FALSE, askForOverwrite=FALSE)
 
-You might see the following error message:
+sink("myAlignment.txt") ## it will send R output to a textt file
+print(alignmuscle, show="complete") ## it will write results of object alignmuscle
+sink() # making of file is finished with this command
 
-> Error in texi2dvi(texfile, quiet = !verbose, pdf = identical(output, “pdf”),  
-> unable to run pdflatex
+###
 
-If this happened, it means that your computer is missing the Latex
-program, that is responsible for generating the pdf image with the
-pretty alignment. To solve this you will need to follow the steps below:
 
-------------------------------------------------------------------------
+ggmsa(protein_sequences, 300, 350, color = "Clustal", font = "DroidSansMono", char_width = 0.5, seq_name = TRUE )
 
-#### Download and install the Latex program from this [link](https://www.latex-project.org/get/):
 
-At the bottom of the page, choose the version that suits your operating
-system:
 
-1.  *MacTeX* for Macs
-2.  *MikTex* for Windows
-3.  *LinuxTex dist* for Linux
-
-Click the link to the version you need to install, download it and
-install it. After installing your version of Latex (MikTex, MacTex or
-LinuxTex), search for it using your Mac `finder` or the windows search
-bar and **open it**.
-
-You will be prompted with a text editor like window. This is your Latex.
-Go back to R and run the following command:
-
-    msaPrettyPrint(alignmuscle, output="tex", y=c(1, 633),
-                   subset=c(1:6), showNames="none", showLogo="top",
-                   logoColors="rasmol", shadingMode="similar",
-                   showLegend=FALSE, askForOverwrite=FALSE)
-
-Observe that the value inside the parameter `output=` was changed from
-**pdf** to **tex**, if this command ran without problems, you generated
-a text file called `alignmuscle.tex`. Open this file using your *Latex*
-program and hit run. After doing these steps, you should be prompted
-with a question about installing the package `TeXshade` to generate the
-pretty alignment PDF. Just accept the installation steps and you will
-see your pretty alignment.
-
-Having done all of that, your previous `msaPrettyPrint()`, with the
-parameter `output="pdf"` will likely work. Maybe you need to close your
-R studio and open it again… If nothing of that works, you won’t have a
-pretty alignment to show for now :/
 
 ------------------------------------------------------------------------
 
@@ -181,7 +129,7 @@ object to formats used in other sequence analysis packages. Benefit of
 this is that you can directly proceed to other packages without reading
 the input again.
 
-    alignmentfish <- msaConvert(alignmuscle, type= "phangorn::phyDat")
+    alignmentfish <- msaConvert(alignmuscle, type= "bios2mds::align")
 
 optional: you may want to write alignment file to hard disk use
 following command and use it someother non R based programs.
