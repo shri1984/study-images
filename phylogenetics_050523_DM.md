@@ -8,13 +8,13 @@
 
 **3)** Constructing a phylogenetic tree in R
 
-# 1. Principle of tree construction
+# Principle of tree construction
 
 We will do a fun exercise before we do a real phylogenetic tree construction. Can you place these new organisms in order? And give your rationale for your placement of that organism in this tree.
 
 ![](https://raw.githubusercontent.com/shri1984/study-images/main/Picture1.jpg?token=GHSAT0AAAAAACCFFFMC5RONLSSBPRYSKJBGZCUWWBQ)
 
-### Building a phylogenetic tree using some anatomical characters
+## Building a phylogenetic tree using some anatomical characters
 
 Table below contains charatcters to make our tree. + indicates presence and 0 represents absence. This data taken from Principles of biology by Robert Bear (table from khan academy) with some modifications.
 
@@ -44,7 +44,7 @@ indicates they are derived traits.
 3.  Following the same pattern, we can now look for the derived trait
     shared by the next-largest number of organisms. That would be the
     gizzard, which is shared by the alligator and the bald eagle (and
-    absent from the antelope). Based on this data, we can draw the
+    absent in antelope). Based on this data, we can draw the
     antelope lineage branching off from the alligator and bald eagle
     lineage, and place the appearance of the gizzard on the latter.
 
@@ -57,7 +57,7 @@ indicates they are derived traits.
     this is on the antelope lineage, after its divergence from the
     alligator and bald eagle.
 
-# 2. Constructing a phylogenetic tree in R
+# Constructing a phylogenetic tree in R
 
 Phylogentics in R needs various packages such as `msa` (Bonatesta et
 al), `bios2mds`,(Pele et al) and `phangorn` (Schliep et al). One benefit
@@ -69,22 +69,28 @@ unpredictable.
 
 Some of the packages (phangorn, tinytex, and bios2mds) can be directly
 downloadable from R studio “packages” tab. However, **msa package**
-needs to be downloaded using **Bioconductor**. Type “msa r package” in
+needs to be downloaded using **Bioconductor**. Type ***“msa r package”*** in
 google and find relevant bioconductor package. Read relevant information
-about how to download msa.
+about how to download msa. First you may need to download package downloader called **bioconductor**
+
+´´´
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("msa")
+
+´´´
+
 
     #load packages
-    library(tinytex)
     library(msa) 
     library(bios2mds) 
     library(phangorn) 
-    system.file("tex", "texshade.sty", package="msa") # needed for Latex/Texshade related function to work
-
 ## 2. Alignment of nucleotide sequences
 
 ### 2.1 read sequences in fasta format into msa
 
-    mysequencefile <- readDNAStringSet("phylogenetics_tree.fasta", format = "fasta") 
+    mysequencefile <-("phylogenetics_tree.fasta", format = "fasta") 
 
 ### 2.2 run multiple alignemnt analysis using `muscle` program
 
