@@ -87,6 +87,7 @@ library(msa)
 library(bios2mds) 
 library(phangorn) 
 library(ape)
+library(stats)
 library(ggplot2)
 
 # Alignment of nucleotide sequences
@@ -100,7 +101,7 @@ mysequencefile <- readDNAStringSet("phylogenetics_tree.fasta", format = "fasta")
 This following step can lot of time, depending on number of sequences
 and length. Here it will go fast.
 
-alignmuscle  <- msa(mysequencefile,method = "Muscle")
+alignmuscle  <- msa(mysequencefile, method = "Muscle")
 
 align_format <- msaConvert(alignmuscle, type= "bios2mds::align")
 
@@ -164,12 +165,7 @@ treNJ <- ladderize(treNJ) #This function reorganizes the internal structure of t
 
 treNJ # tells us what the tree will look like but doesn't show the actual construction
 
-treUPGMA <- hclust(D, method = "average", members = NULL) # method = average is used for UPGMA, members can be equal to NULL or a vector with a length of size D
-
-
-
-
-
+treUPGMA <- hclust(D, method = "average", members = NULL) # method = average is used for UPGMA, members can be equal to NULL or a vector with a length of size D. This tree is called an ultrametric tree, 
 
 ```
 Plot trees using generic function. Remember here we are just making tree strucure. But you can play around and make colourful trees using different functions. 
@@ -177,26 +173,56 @@ Plot trees using generic function. Remember here we are just making tree strucur
 ```
 plot(treUPGMA, main="A Simple UPGMA Tree")
 
+add.scale.bar()
+
 plot(treeNJ, type = "unrooted", main="A Simple NJ Tree")
 
+add.scale.bar()
+
 ```
-if you want make rooted NJ treee; 
+if you want make rooted NJ treee,
+
 ```
-treNJ2 <- root(treNJ, out = 1)
+treNJ2 <- root(treNJ, outgroup = "Esox lucius", resolve.root = TRUE, edgelabel = TRUE)
+
+
 tre2 <- ladderize(treNJ2)
+
 plot(tre2, show.tip=FALSE, edge.width=2, main="Rooted NJ tree")
-title("Rooted NJ tree")
+add.scale.bar()
 
 
 
+```
+As we have øpt pf options to make a phylogenetics trees, we have to make sure that the alogrithm we chose to make tree is the right one to explain the sequence data. 
 
 To get statistical significance values for branch split you need to
 perform bootstrapping.
 
+## choosing 'right' algorithm 
+
+We will use correlation analysis between the caluclated distnce between the taxa and cophenetic distance to choose the the right tree. The cophenetic distance between two observations that have been clustered is defined to be the intergroup dissimilarity at which the two observations are first combined into a single cluster. Note that this distance has many ties and restrictions.
+
+```
+x <- as.vector(D) # convert D as vector
+y <- as.vector(as.dist(cophenetic(tre2))) # caluclate cophentic distance from tre2 and convert it to vector. Cophenetic function computes distances between the tips of the trees
+plot(x, y, xlab="original pairwise distances", ylab="pairwise distances on the tree", main="Is NJ appropriate?", pch=20, col=transp("black",.1), cex=3)
+abline(lm(y~x), col="red")
+cor(x,y)^2
+
+#### UPGMA tree
+tre3 <- treUPGMA
+y <- as.vector(as.dist(cophenetic(tre3)))
+plot(x, y, xlab="original pairwise distances", ylab="pairwise distances on the tree", main="Is UPGMA appropriate?", pch=20, col=transp("black",.1), cex=3)
+abline(lm(y~x), col="red")
+cor(x,y)^2
+
+```
+choose right tree and proceed to bootstrapping.
+
 ### Run bootstrapping
 
-Bootstrapping is a test or metric that uses random sampling with
-replacement and falls under the broader class of resampling methods. It
+Bootstrapping is a test or metric that uses random sampling withreplacement and falls under the broader class of resampling methods. It
 uses sampling with replacement to estimate the sampling distribution for
 the estimator (Ojha et al 2022). Basic idea is building same tree
 leaving out some portion of evidence (some bases from a sequence) and check if same clades appear
@@ -204,93 +230,103 @@ even after leaving out some data
 
 First we need to write a function
 
-    fun <- function(x) upgma(dist.ml(x)) ## function calculates distance first and then tree is calculated from alignment. function fun performs tree building on the input x using the upgma algorithm after calculating the pairwise distance between elements using dist.ml.
+    fun <- function(x) root(nj(dist.dna(x, model = "TN93")),1)) ## function calculates distance first and then tree is calculated from alignment. function fun performs tree building on the input x using the upgma algorithm after calculating the pairwise distance between elements using dist.ml.
 
 Then need to calculate boot strap values through bootstrap.phyDat function from phangron.
 
-    bs_upgma <- bootstrap.phyDat(alignmentfish, fun)
+    bs_nj <- boot.phylo(tre2, fun) # performs the bootstrap automatically for us
 
-plot the bootstrap values on tree branches
+    bs_nj
+
+plot the bootstrap values on tree branches like below 
 
 ```
-   plotBS(treeUPGMA, bs_upgma, main="UPGMA") #plot bootstrap values
+plot(tre2, show.tip=FALSE, edge.width=2, main = "NJ tree + bootstrap values") #plot bootstrap values
+
+add.scale.bar()
+
+nodelabels(bs_nj, cex=.6) # adds labels to or near the nodes, pretty self explanatory
 
 ```
+How does node support looks? the numbers oshown by nodelabels() show how many times each node appreared in the bootstrapped trees. 
+
+```
+temp <- tre2
+N <- length(tre2$tip.label)
+toCollapse <- match(which(bd_nj<70)+N, temp$edge[,2])
+temp$edge.length[toCollapse] <- 0
+tre3 <- di2multi(temp, tol=0.00001)
+plot(tre3, show.tip=FALSE, edge.width=2. main = "NJ tree after collapsing weak nodes")
+
+```
+
+
+
 ### Parsimony based trees
 
-Now we will caluclate parsimony score, which is the minimum number of
-changes ncecessary to describe the data for a given tree type.
+Now we will caluclate parsimony score, which is the minimum number of changes ncecessary to describe the data for a given tree type.
 
-    parsimony(treeUPGMA, alignmentfish)
+```
+parsimony(treUPGMA, alignmentfish) # parsimony score of original tree ## it will output a value p-score
 
-    parsimony(treeNJ, alignmentfish) #parsimony returns the parsimony score of a tree
+parsimony(treNJ, alignmentfish) #parsimony returns the parsimony score of a tree
 
-#### Calculate parsimony tree
+tre.pars.nj <- optim.parsimony(treNJ, alignmentfish)
+tre.pars.nj 
 
-    treeRatchet  <- pratchet(alignmentfish, trace = 0, minit=100, maxit = 1000) ##lower number of iterations for the example (to run less than 5 seconds), keep default values (maxit, minit, k) or increase them for real life analyses.
-    parsimony(treeRatchet, alignmentfish)
+tre.pars.upgma <- optim.parsimony(treUPGMA, alignmentfish)
+tre.pars.upgma
 
-    #assign edge length (number of substitutions)
-    treeRatchet  <- acctran(treeRatchet,alignmentfish) 
+plot(tre.pars, type="unr", show.tip=FALSE, edge.width=2, main = "Maximum-parsimony tree")
 
-    #remove edges of length 0
-    treeRatchet <- di2multi(treeRatchet)
+```
 
-    #### remove duplicate trees
-    if(inherits(treeRatchet, "multiPhylo")){
-      treeRatchet <- unique(treeRatchet)
-    }
+### Maximum Likelihood-based 
 
-##### Root tree with option midpoint, a method to root the tree.
+#### compare different nucleotide substitution models we needed to make MxL-based tree
 
-Midpoint rooting method calculates tip to tip distances and then places
-the root point halfway between two longest tips.It assuen rate of
-evolution is constant (equal substitution rates) in the tree. It is an
-ideal method if you lack a proper outgtoup (absence or lack of
-knowledge), like in virus phylogenomics.
+As a first step, we will try to find the best fitting substition model. For this we use the function `modelTest` to compare different nucleotide or protein models with the AIC, AICc or BIC
 
-    plotBS(midpoint(treeRatchet), type="phylogram")
-    add.scale.bar()
+```
+mt <- modelTest(alignmentfish, control=pml.control(trace=0))
 
-Outgroup rooting method assumes that one or more of the tax aee
-divergent from the rest of the ingroup tax. The btanch linking the
-ingroup and outgroup becoems the starting point and all the evolutionary
-changes defined from here. One important thing is that you need to have
-priori knowledge about the outgroup, when it is confusing,people either
-choose close or very distant species as ourgroup. if you want to root a
-tree with specific species (need prior knowledge) then you need to use
-functions from package àpe\`.
+fit <- as.pml(mt, "BIC") #choose best model based on BIC criteria
 
-    rooted_tree <- root(treeRatchet, outgroup = "Esox lucius", resolve.root = TRUE,
-                           edgelabel = TRUE)
-    add.scale.bar()
-
-### 3.3 Maximum Likelihood
-
-#### compare different nucleotide substitution models
-
-    mt <- modelTest(alignmentfish, control=pml.control(trace=0))
-
-As a first step, we will try to find the best fitting substition model.
-For this we use the function `modelTest` to compare different nucleotide
-or protein models with the AIC, AICc or BIC,
-
-    fit <- as.pml(mt, "BIC") #choose best model based on BIC criteria
+```
+or you can try this. 
 
 #### make a ml tree
 
-Or let the program to choose best model based on the criteria and pass
-it to tree building algorithm.
+Or let the program to choose best model based on the criteria and pass it to tree building algorithm.
 
-    fit_mt <- pml_bb(mt, control = pml.control(trace = 0))
-    fit_mt
+```
+tre.ml <- treNJ
 
-    bs <- bootstrap.pml(fit_mt, bs=100, optNni=TRUE, control = pml.control(trace = 0)) #do a standard bootstrapping 
+fit.ini <- pml(treNJ, dna2, model="")
 
-    plotBS(midpoint(fit_mt$tree), bs, p = 50, type="p", main="Standard bootstrap") # plot trees with midpoint rooting 
+fit.ini
 
-    tree_stdbs <- plotBS(midpoint(fit_mt$tree), bs, p = 50, type="n", main="Standard bootstrap")
-    ##assigning standard bootstrap values to our tree; this is the default method
+fit <- optim.pml(fit.ini, optNni=TRUE, optBf=TRUE, optQ=TRUE, optGamma=TRUE)
+
+fit
+
+
+```
+
+
+
+
+
+```
+fit_mt <- pml_bb(mt, control = pml.control(trace = 0))
+    
+fit_mt
+
+bs <- bootstrap.pml(fit_mt, bs=100, optNni=TRUE, control = pml.control(trace = 0)) #do a standard bootstrapping 
+
+plotBS(midpoint(fit_mt$tree), bs, p = 50, type="p", main="Standard bootstrap") # plot trees with midpoint rooting 
+
+tree_stdbs <- plotBS(midpoint(fit_mt$tree), bs, p = 50, type="n", main="Standard bootstrap") ##assigning standard bootstrap values to our tree; this is the default method
 
 #### exporting trees tree with standard bootstrap values in `newick` format.
 
