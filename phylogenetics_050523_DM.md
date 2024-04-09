@@ -86,6 +86,7 @@ BiocManager::install("ggmsa")
 library(msa) 
 library(bios2mds) 
 library(phangorn) 
+library(ape)
 library(ggplot2)
 
 # Alignment of nucleotide sequences
@@ -106,11 +107,11 @@ align_format <- msaConvert(alignmuscle, type= "bios2mds::align")
 you can write alignment data to a file instead of keeping it in an R object, use
 
 ```
-export.fasta(alignmuscle, outfile = "myAlignment.fasta", ncol = 60, open = "w")
+export.fasta(align_format, outfile = "myAlignment.fasta", ncol = 60, open = "w")
 
 ```
 
-Now open the file myAlignment.fasta in bbedit and see the content. You see there is string of NAs at the end of each fasta sequence. It is a bug or artefact. we will remove them manually. 
+Now open the file myAlignment.fasta in bbedit and see the content. You see there is string of NAs at the end of each fasta sequence. It is a bug or artefact. We will remove them manually. 
 
 If ypu want to see the part of alignment , use function ggmsa from ggmsa package. 
 
@@ -125,63 +126,97 @@ object to formats used in other sequence analysis packages. Benefit of
 this is that you can directly proceed to other packages without reading
 the input again.
 
-    alignmentfish <- msaConvert(alignmuscle, type= "phangorn::phyDat")
+```
+alignmentfish <- msaConvert(alignmuscle, type= "ape::DNAbin")
 
-optional: you may want to write alignment file to hard disk use
-following command and use it someother non R based programs.
-
-    export.fasta(alignmuscle2, outfile = "test_alignment.fa", ncol = 60, open = "w")
-
-Optional: if you want to read disk written alignment file
-test\_alignment.fa use this command.
-
-    alignmentfish1 <-read.phyDat(alignmentfish, type = "dna", format = "fasta")
+```
 
 Now we will try to do some phylogenetic trees based on different
 methods.
 
-## 3. Phylogenetic tree construction
+## Phylogenetic tree construction
 
-### 3.1 Distance based phylogenetic tree construction
+Distance-based trees are produced by calculating the genetic distances between pairs of taxa/species/measurements, followed by hierarchical clustering that creates the actual “tree” look. Two popular clustering methods that are used most frequenctly for distance based clustering method are UPGMA and NJ algorithms.
 
-First calculate a distance matrix
+UPGMA- this is the simplest method for constructing trees, assumes the same evolutionary speed for all lineages (which can be a disadvantage); all leaves have the same distance from the root (creates ultrametric tree)
 
-    dm <- dist.ml(alignmentfish)  #calculate distance matrix using dist.ml from phangorn
+Neighbor-joining- taking the two closest nodes of the tree and defines them as neighbors; you keep doing this until all of the nodes have been paired together
 
-Now use object dm to costruct two distance based phylogenetic trees
-`treeUPGMA  <- upgma(dm) #calculate upgma/NJ tree using upgma nad nj function from package phangron. treeNJ  <- NJ(dm)`
 
-Plot trees using generic function.
+### Distance based phylogenetic tree construction
 
-    plot(treeUPGMA, main="UPGMA")
-    plot(treeNJ, "unrooted", main="NJ")
+First calculate a distance matrix from ***ape** package
+
+```
+D <- dist.dna(dna, model = "TN93")  #just the type of evolutionary model we’re using, this particular one allows for different transition rates, heterogenous base frequencies, and variation of substitution rate at the same site
+
+length(D) #number of pairwise distances, computed as n(n-1)/2
+
+```
+Now use object dm to costruct two distance based phylogenetic trees. There are lot of functions in R to build distance based phylogenetic tree. But we will use few of them here mainly from ***ape** package
+
+```
+treNJ <- nj(D)
+
+class(treNJ) #all trees created using ape package will be of class phylo
+
+treNJ <- ladderize(treNJ) #This function reorganizes the internal structure of the tree to get the ladderized effect when plotted
+
+treNJ # tells us what the tree will look like but doesn't show the actual construction
+
+treUPGMA <- hclust(D, method = "average", members = NULL) # method = average is used for UPGMA, members can be equal to NULL or a vector with a length of size D
+
+
+
+
+
+
+```
+Plot trees using generic function. Remember here we are just making tree strucure. But you can play around and make colourful trees using different functions. 
+
+```
+plot(treUPGMA, main="A Simple UPGMA Tree")
+
+plot(treeNJ, type = "unrooted", main="A Simple NJ Tree")
+
+```
+if you want make rooted NJ treee; 
+```
+treNJ2 <- root(treNJ, out = 1)
+tre2 <- ladderize(treNJ2)
+plot(tre2, show.tip=FALSE, edge.width=2, main="Rooted NJ tree")
+title("Rooted NJ tree")
+
+
+
 
 To get statistical significance values for branch split you need to
 perform bootstrapping.
 
-### 3.1a Run bootstrapping
+### Run bootstrapping
 
 Bootstrapping is a test or metric that uses random sampling with
 replacement and falls under the broader class of resampling methods. It
 uses sampling with replacement to estimate the sampling distribution for
 the estimator (Ojha et al 2022). Basic idea is building same tree
-leaving out some portion of evidence and check if same clades appear
+leaving out some portion of evidence (some bases from a sequence) and check if same clades appear
 even after leaving out some data
 
 First we need to write a function
 
     fun <- function(x) upgma(dist.ml(x)) ## function calculates distance first and then tree is calculated from alignment. function fun performs tree building on the input x using the upgma algorithm after calculating the pairwise distance between elements using dist.ml.
 
-Then need to calculate boot strap values through bootstrap.phyDat
-function from phangron.
+Then need to calculate boot strap values through bootstrap.phyDat function from phangron.
 
     bs_upgma <- bootstrap.phyDat(alignmentfish, fun)
 
 plot the bootstrap values on tree branches
 
-    plotBS(treeUPGMA, bs_upgma, main="UPGMA") #plot bootstrap values
+```
+   plotBS(treeUPGMA, bs_upgma, main="UPGMA") #plot bootstrap values
 
-### 3.2 Parsimony based trees
+```
+### Parsimony based trees
 
 Now we will caluclate parsimony score, which is the minimum number of
 changes ncecessary to describe the data for a given tree type.
