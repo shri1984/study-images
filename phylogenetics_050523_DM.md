@@ -281,27 +281,25 @@ plot(tre.pars.nj, type="unr", show.tip=FALSE, edge.width=2, main = "Maximum-pars
 As a first step, we will try to find the best fitting substition model. For this we use the function `modelTest` to compare different nucleotide or protein models with the AIC, AICc or BIC
 
 ```
-mt <- modelTest(align_phydata, control=pml.control(trace=0)) # data must be phydata class
+mt <- modelTest(align_phydata, control=pml.control(trace=0))
 
 fit <- as.pml(mt, "BIC") #choose best model based on BIC criteria
 
 ```
-or you can try this. 
 
 ##  make a ml tree
 
-Or let the program to choose best model based on the criteria and pass it to tree building algorithm.
-
 ```
-tre.ml <- treNJ
+dm <- dist.dna(align_phydata)
 
-fit.ini <- pml(treNJ, dna2, model="TN93")
+tree <- nj(D)
 
-fit.ini
+fit.ini <- pml(tree, align_phydata )
 
-fit <- optim.pml(fit.ini, optNni=TRUE, optBf=TRUE, optQ=TRUE, optGamma=TRUE)
+fitTrN <- optim.pml(fit.ini, model="TrN", optInv=TRUE, optGamma=TRUE, rearrangement = "stochastic", control = pml.control(trace = 0))
 
-fit
+anova(fit.ini, fitTrN)
+
 
 ```
 
