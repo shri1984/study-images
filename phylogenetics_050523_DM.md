@@ -67,8 +67,8 @@ unpredictable.
 
 ## 1. Install or load R packages
 
-Some of the packages (phangorn, tinytex, and bios2mds) can be directly
-downloadable from R studio “packages” tab. However, **msa package** and **ggmsa**
+Some of the packages (phangorn, msa, ape, ggplot2 and bios2mds) can be directly
+downloadable from R studio “packages” tab. ggplot2 might have been already there from data science part. However, **msa package** and **ggmsa**
 needs to be downloaded using **Bioconductor**. Type ***“msa r package”*** in
 google and find relevant bioconductor package. Read relevant information
 about how to download msa. First you may need to download package downloader called **bioconductor**
@@ -91,9 +91,9 @@ library(stats)
 library(ggplot2)
 library(ggmsa)
 
-# Alignment of nucleotide sequences
+## Alignment of nucleotide sequences
 
-## Read sequences in fasta format into msa (Multiple Sequence Alignment) algorithm
+### Read sequences in fasta format into msa (Multiple Sequence Alignment) algorithm
 
 mysequencefile <- readDNAStringSet("phylogenetics_tree.fasta", format = "fasta") 
 
@@ -113,19 +113,19 @@ export.fasta(align_format, outfile = "myAlignment.fasta", ncol = 60, open = "w")
 
 ```
 
-Now open the file myAlignment.fasta in bbedit and see the content. You see there is string of NAs at the end of each fasta sequence. It is a bug or artefact. We will remove them manually. 
+Now open the file myAlignment.fasta in bbedit and see the content. You see there is string of NAs at the end of each fasta sequence. It is a bug from the package.I cant figureout what is happening. We will remove them manually. 
 
-If ypu want to see the part of alignment , use function ggmsa from ggmsa package. 
+If ypu want to visualise and annotation of multiple sequence alignment such as myAlignment.fasta in, use function ggmsa from ggmsa package. 
 
 ```
 ggmsafile<- "/Users/sbh001/Library/CloudStorage/OneDrive-UiTOffice365/course-FSK2053/lecture3_phylogenetics/myAlignment.fasta"
 
-ggmsa(ggmsafile, 300, 350, color = "Clustal", font = "DroidSansMono", char_width = 0.5, seq_name = TRUE ) # see alignment in coliurful format.
+ggmsa(ggmsafile, 300, 350, color = "Clustal", font = "DroidSansMono", char_width = 0.5, seq_name = TRUE ) + geom_seqlogo() + geom_msaBar()  # see alignment in colurful format.
 
 ```
 
 Once you are done with alignment, next step is making the phylogenetic
-tree. This follwing function converts a multiple sequence alignment
+tree from those alignment. This follwing function converts a multiple sequence alignment
 object to formats used in other sequence analysis packages. Benefit of
 this is that you can directly proceed to other packages without reading
 the input again. Here we will convert msa object into DNAbin object reqired by paclakge ***ape**.
@@ -174,7 +174,7 @@ treeUPGMA <- hclust(D, method = "average", members = NULL) # method = average is
 Plot trees using generic function. Remember here we are just making tree strucure. But you can play around and make colourful trees using different functions. 
 
 ```
-plot(treUPGMA, main="A Simple UPGMA Tree")
+plot(treeUPGMA, main="A Simple UPGMA Tree")
 
 plot(treeNJ, type = "phylogram", main="A Simple NJ Tree", show.tip=FALSE)
 
@@ -186,7 +186,6 @@ if you want make rooted NJ treee,
 ```
 treeNJroot <- root(treeNJ, outgroup = "KM224857_Esox_lucius", resolve.root = TRUE, edgelabel = TRUE)
 
-
 treeNJroot <- ladderize(treeNJout)
 
 plot(treeNJroot, show.tip=FALSE, edge.width=2, main="Rooted NJ tree")
@@ -196,7 +195,7 @@ add.scale.bar()
 ```
 As we have lot of options to make a phylogenetics trees, we have to make sure that the alogrithm we chose to make tree is the right one to explain the sequence data. We need to test what type of algorithm explains the data well (NJ or UPGMA?)
 
-## choosing 'right' algorithm 
+### choosing 'right' algorithm 
 
 We will use correlation analysis between the caluclated distnce between the taxa and cophenetic distance to choose the the right tree. The cophenetic distance between two observations that have been clustered is defined to be the intergroup dissimilarity at which the two observations are first combined into a single cluster. Note that this distance has many ties and restrictions.
 
@@ -274,7 +273,7 @@ parsimony(treeNJroot, align_phydata) #parsimony returns the parsimony score of a
 tre.pars.nj <- optim.parsimony(treNJ, align_phydata)
 tre.pars.nj 
 
-plot(tre.pars.nj, type="unr", show.tip=FALSE, edge.width=2, main = "Maximum-parsimony tree") #it has lower parsimonious score compare to the original tree.
+plot(tre.pars.nj, type="unr", show.tip=FALSE, edge.width=2, main = "Maximum-parsimony tree") #it has lower parsimonious score compare to the original tree. try other type 
 
 ```
 
