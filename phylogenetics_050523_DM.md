@@ -1,4 +1,4 @@
-### Bioinformatics Practical 3. Phylogentic inferences
+# Phylogentic inferences
 
 **Aim of the practical**
 
@@ -162,11 +162,11 @@ Now use object dm to costruct two distance based phylogenetic trees. There are l
 ```
 treeNJ <- nj(D)
 
-class(treNJ) #all trees created using ape package will be of class phylo
+class(treeNJ) #all trees created using ape package will be of class phylo
 
 treeNJ <- ladderize(treeNJ) #This function reorganizes the internal structure of the tree to get the ladderized effect when plotted
 
-treNJ # tells us what the tree will look like but doesn't show the actual construction
+treeNJ # tells us what the tree will look like but doesn't show the actual construction
 
 treeUPGMA <- hclust(D, method = "average", members = NULL) # method = average is used for UPGMA, members can be equal to NULL or a vector with a length of size D. This tree is called an ultrametric tree, 
 
@@ -184,7 +184,7 @@ add.scale.bar()
 if you want make rooted NJ treee,
 
 ```
-treeNJroot <- root(treNJ, outgroup = "KM224857_Esox_lucius", resolve.root = TRUE, edgelabel = TRUE)
+treeNJroot <- root(treeNJ, outgroup = "KM224857_Esox_lucius", resolve.root = TRUE, edgelabel = TRUE)
 
 
 treeNJroot <- ladderize(treeNJout)
@@ -222,7 +222,11 @@ Bootstrapping is a test or metric that uses random sampling withreplacement and 
 uses sampling with replacement to estimate the sampling distribution for
 the estimator (Ojha et al 2022). Basic idea is building same tree
 leaving out some portion of evidence (some bases from a sequence) and check if same clades appear
-even after leaving out some data
+even after leaving out some data.
+
+![](https://raw.githubusercontent.com/shri1984/study-images/main/Screen%20Shot%202023-05-03%20at%2012.23.01.png?token=GHSAT0AAAAAACCFFFMDFNA5P5PWHFBIYVHCZCUWUQQ)
+
+![](https://github.com/shri1984/study-images/blob/14bd0e4e8f9226b9e749f08e431f617b94a58159/3-s2.0-B9780128096338202598-f20259-01-9780128114148.jpg)
 
 First we need to write a function
 
@@ -285,11 +289,6 @@ mt <- modelTest(align_phydata, control=pml.control(trace=0))
 
 fit <- as.pml(mt, "BIC") #choose best model based on BIC criteria
 
-```
-
-##  make a ml tree
-
-```
 dm <- dist.dna(align_phydata)
 
 tree <- nj(D)
@@ -297,9 +296,6 @@ tree <- nj(D)
 fit.ini <- pml(tree, align_phydata )
 
 fitTrN <- optim.pml(fit.ini, model="TrN", optInv=TRUE, optGamma=TRUE, rearrangement = "stochastic", control = pml.control(trace = 0))
-
-anova(fit.ini, fitTrN)
-
 
 ```
 
@@ -316,17 +312,11 @@ AIC(fit)
 Both the ANOVA test (highly significant) and the AIC (lower=better) indicate that the new tree is a better model of the data than the initial one.
 
 ```
-tre4 <- root(fit$tree,1)
+tre4 <- root(fitTrN$tree, outgroup = "KM224857_Esox_lucius", resolve.root = TRUE, edgelabel = TRUE))
 tre4 <- ladderize(tre4)
 plot(tre4, show.tip=FALSE, edge.width=2, main = "Maximum-likelihood tree")
 
 ```
-
-
-
-
-
-
 Extra information: ’Beauti’fication of phylogenetic trees can be done
 using `ggplot`and its associated package called `ggtree` can be used to
 make trees more beautiful.
