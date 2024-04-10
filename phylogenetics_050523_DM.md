@@ -89,6 +89,7 @@ library(phangorn)
 library(ape)
 library(stats)
 library(ggplot2)
+library(ggmsa)
 
 # Alignment of nucleotide sequences
 
@@ -117,7 +118,9 @@ Now open the file myAlignment.fasta in bbedit and see the content. You see there
 If ypu want to see the part of alignment , use function ggmsa from ggmsa package. 
 
 ```
-ggmsa(protein_sequences, 300, 350, color = "Clustal", font = "DroidSansMono", char_width = 0.5, seq_name = TRUE ) # see alignment in coliurful format.
+ggmsafile<- "/Users/sbh001/Library/CloudStorage/OneDrive-UiTOffice365/course-FSK2053/lecture3_phylogenetics/myAlignment.fasta"
+
+ggmsa(ggmsafile, 300, 350, color = "Clustal", font = "DroidSansMono", char_width = 0.5, seq_name = TRUE ) # see alignment in coliurful format.
 
 ```
 
@@ -125,7 +128,7 @@ Once you are done with alignment, next step is making the phylogenetic
 tree. This follwing function converts a multiple sequence alignment
 object to formats used in other sequence analysis packages. Benefit of
 this is that you can directly proceed to other packages without reading
-the input again.
+the input again. Here we will convert msa object into DNAbin object reqired by paclakge ***ape**.
 
 ```
 alignmentfish <- msaConvert(alignmuscle, type= "ape::DNAbin")
@@ -149,7 +152,7 @@ Neighbor-joining- taking the two closest nodes of the tree and defines them as n
 First calculate a distance matrix from ***ape** package
 
 ```
-D <- dist.dna(dna, model = "TN93")  #just the type of evolutionary model we’re using, this particular one allows for different transition rates, heterogenous base frequencies, and variation of substitution rate at the same site
+D <- dist.dna(alignmentfish, model = "TN93")  #just the type of evolutionary model we’re using, this particular one allows for different transition rates, heterogenous base frequencies, and variation of substitution rate at the same site
 
 length(D) #number of pairwise distances, computed as n(n-1)/2
 
@@ -157,15 +160,15 @@ length(D) #number of pairwise distances, computed as n(n-1)/2
 Now use object dm to costruct two distance based phylogenetic trees. There are lot of functions in R to build distance based phylogenetic tree. But we will use few of them here mainly from ***ape** package
 
 ```
-treNJ <- nj(D)
+treeNJ <- nj(D)
 
 class(treNJ) #all trees created using ape package will be of class phylo
 
-treNJ <- ladderize(treNJ) #This function reorganizes the internal structure of the tree to get the ladderized effect when plotted
+treeNJ <- ladderize(treeNJ) #This function reorganizes the internal structure of the tree to get the ladderized effect when plotted
 
 treNJ # tells us what the tree will look like but doesn't show the actual construction
 
-treUPGMA <- hclust(D, method = "average", members = NULL) # method = average is used for UPGMA, members can be equal to NULL or a vector with a length of size D. This tree is called an ultrametric tree, 
+treeUPGMA <- hclust(D, method = "average", members = NULL) # method = average is used for UPGMA, members can be equal to NULL or a vector with a length of size D. This tree is called an ultrametric tree, 
 
 ```
 Plot trees using generic function. Remember here we are just making tree strucure. But you can play around and make colourful trees using different functions. 
@@ -173,9 +176,7 @@ Plot trees using generic function. Remember here we are just making tree strucur
 ```
 plot(treUPGMA, main="A Simple UPGMA Tree")
 
-add.scale.bar()
-
-plot(treeNJ, type = "unrooted", main="A Simple NJ Tree")
+plot(treeNJ, type = "phylogram", main="A Simple NJ Tree", show.tip=FALSE)
 
 add.scale.bar()
 
@@ -183,21 +184,17 @@ add.scale.bar()
 if you want make rooted NJ treee,
 
 ```
-treNJ2 <- root(treNJ, outgroup = "Esox lucius", resolve.root = TRUE, edgelabel = TRUE)
+treeNJroot <- root(treNJ, outgroup = "KM224857_Esox_lucius", resolve.root = TRUE, edgelabel = TRUE)
 
 
-tre2 <- ladderize(treNJ2)
+treeNJroot <- ladderize(treeNJout)
 
-plot(tre2, show.tip=FALSE, edge.width=2, main="Rooted NJ tree")
+plot(treeNJroot, show.tip=FALSE, edge.width=2, main="Rooted NJ tree")
+
 add.scale.bar()
 
-
-
 ```
-As we have øpt pf options to make a phylogenetics trees, we have to make sure that the alogrithm we chose to make tree is the right one to explain the sequence data. 
-
-To get statistical significance values for branch split you need to
-perform bootstrapping.
+As we have lot of options to make a phylogenetics trees, we have to make sure that the alogrithm we chose to make tree is the right one to explain the sequence data. We need to test what type of algorithm explains the data well (NJ or UPGMA?)
 
 ## choosing 'right' algorithm 
 
@@ -206,14 +203,13 @@ We will use correlation analysis between the caluclated distnce between the taxa
 ```
 x <- as.vector(D) # convert D as vector
 y <- as.vector(as.dist(cophenetic(tre2))) # caluclate cophentic distance from tre2 and convert it to vector. Cophenetic function computes distances between the tips of the trees
-plot(x, y, xlab="original pairwise distances", ylab="pairwise distances on the tree", main="Is NJ appropriate?", pch=20, col=transp("black",.1), cex=3)
+plot(x, y, xlab="original pairwise distances", ylab="pairwise distances on the tree", main="Is UPGMA appropriate?", pch=20, col="red", cex=3)
 abline(lm(y~x), col="red")
 cor(x,y)^2
 
 #### UPGMA tree
-tre3 <- treUPGMA
-y <- as.vector(as.dist(cophenetic(tre3)))
-plot(x, y, xlab="original pairwise distances", ylab="pairwise distances on the tree", main="Is UPGMA appropriate?", pch=20, col=transp("black",.1), cex=3)
+y <- as.vector(as.dist(cophenetic(treeUPGMA)))
+plot(x, y, xlab="original pairwise distances", ylab="pairwise distances on the tree", main="Is UPGMA appropriate?", pch=20, col="red", cex=3)
 abline(lm(y~x), col="red")
 cor(x,y)^2
 
@@ -230,54 +226,51 @@ even after leaving out some data
 
 First we need to write a function
 
-    fun <- function(x) root(nj(dist.dna(x, model = "TN93")),1)) ## function calculates distance first and then tree is calculated from alignment. function fun performs tree building on the input x using the upgma algorithm after calculating the pairwise distance between elements using dist.ml.
+    fun <- function(x) root(nj(dist.dna(x, model = "TN93")),1) ## function calculates distance first and then tree is calculated from alignment. function fun performs tree building on the input x using the upgma algorithm after calculating the pairwise distance between elements using dist.ml.
 
 Then need to calculate boot strap values through bootstrap.phyDat function from phangron.
 
-    bs_nj <- boot.phylo(tre2, fun) # performs the bootstrap automatically for us
+bs_nj <- boot.phylo(treeNJroot, alignmentfish, fun) # performs the bootstrap automatically for us
 
-    bs_nj
+bs_nj
 
 plot the bootstrap values on tree branches like below 
 
 ```
-plot(tre2, show.tip=FALSE, edge.width=2, main = "NJ tree + bootstrap values") #plot bootstrap values
+plot(treeNJroot, show.tip=FALSE, edge.width=2, main = "NJ tree + bootstrap values") #plot bootstrap values
 
 add.scale.bar()
 
-nodelabels(bs_nj, cex=.6) # adds labels to or near the nodes, pretty self explanatory
+nodelabels(bs_nj, cex=.6) # adds labels to or near the nodes
 
 ```
-How does node support looks? the numbers oshown by nodelabels() show how many times each node appreared in the bootstrapped trees. 
+How does node support looks? the numbers shown by nodelabels() show how many times each node appreared in the bootstrapped trees. If the numbers by each node are pretty low, meaning there’s not a huge overlap between the nodes in our original tree and the nodes in the bootstrapped tree. Tt means that some of the nodes aren’t supported.
+
+How do we overcome this and fix our tree? We can collapse some of the smaller branches, which will make the tree less informative but more concrete.
 
 ```
-temp <- tre2
-N <- length(tre2$tip.label)
-toCollapse <- match(which(bd_nj<70)+N, temp$edge[,2])
+temp <- treeNJroot
+N <- length(treeNJroot$tip.label)
+toCollapse <- match(which(bs_nj<70)+N, temp$edge[,2])
 temp$edge.length[toCollapse] <- 0
-tre3 <- di2multi(temp, tol=0.00001)
-plot(tre3, show.tip=FALSE, edge.width=2. main = "NJ tree after collapsing weak nodes")
+treeNJroot_trimmed <- di2multi(temp, tol=0.00001)
+plot(treeNJroot_trimmed, show.tip=FALSE, edge.width=2, main = "NJ tree after collapsing weak nodes")
 
 ```
-
-
 
 ### Parsimony based trees
 
 Now we will caluclate parsimony score, which is the minimum number of changes ncecessary to describe the data for a given tree type.
 
 ```
-parsimony(treUPGMA, alignmentfish) # parsimony score of original tree ## it will output a value p-score
+align_phydata <- msaConvert(alignmuscle, type= "phangorn::phyDat")
 
-parsimony(treNJ, alignmentfish) #parsimony returns the parsimony score of a tree
+parsimony(treeNJroot, align_phydata) #parsimony returns the parsimony score of a tree
 
-tre.pars.nj <- optim.parsimony(treNJ, alignmentfish)
+tre.pars.nj <- optim.parsimony(treNJ, align_phydata)
 tre.pars.nj 
 
-tre.pars.upgma <- optim.parsimony(treUPGMA, alignmentfish)
-tre.pars.upgma
-
-plot(tre.pars, type="unr", show.tip=FALSE, edge.width=2, main = "Maximum-parsimony tree")
+plot(tre.pars.nj, type="unr", show.tip=FALSE, edge.width=2, main = "Maximum-parsimony tree") #it has lower parsimonious score compare to the original tree.
 
 ```
 
@@ -288,7 +281,7 @@ plot(tre.pars, type="unr", show.tip=FALSE, edge.width=2, main = "Maximum-parsimo
 As a first step, we will try to find the best fitting substition model. For this we use the function `modelTest` to compare different nucleotide or protein models with the AIC, AICc or BIC
 
 ```
-mt <- modelTest(alignmentfish, control=pml.control(trace=0))
+mt <- modelTest(align_phydata, control=pml.control(trace=0)) # data must be phydata class
 
 fit <- as.pml(mt, "BIC") #choose best model based on BIC criteria
 
@@ -302,7 +295,7 @@ Or let the program to choose best model based on the criteria and pass it to tre
 ```
 tre.ml <- treNJ
 
-fit.ini <- pml(treNJ, dna2, model="")
+fit.ini <- pml(treNJ, dna2, model="TN93")
 
 fit.ini
 
