@@ -295,7 +295,7 @@ fit <- as.pml(mt, "BIC") #choose best model based on BIC criteria
 ```
 or you can try this. 
 
-#### make a ml tree
+##  make a ml tree
 
 Or let the program to choose best model based on the criteria and pass it to tree building algorithm.
 
@@ -310,6 +310,24 @@ fit <- optim.pml(fit.ini, optNni=TRUE, optBf=TRUE, optQ=TRUE, optGamma=TRUE)
 
 fit
 
+```
+
+It is important to verify which tree was better and has good evidence? 
+
+```
+anova(fit.ini, fit)
+
+AIC(fit.ini)
+
+AIC(fit)
+
+```
+Both the ANOVA test (highly significant) and the AIC (lower=better) indicate that the new tree is a better model of the data than the initial one.
+
+```
+tre4 <- root(fit$tree,1)
+tre4 <- ladderize(tre4)
+plot(tre4, show.tip=FALSE, edge.width=2, main = "Maximum-likelihood tree")
 
 ```
 
@@ -317,20 +335,6 @@ fit
 
 
 
-```
-fit_mt <- pml_bb(mt, control = pml.control(trace = 0))
-    
-fit_mt
-
-bs <- bootstrap.pml(fit_mt, bs=100, optNni=TRUE, control = pml.control(trace = 0)) #do a standard bootstrapping 
-
-plotBS(midpoint(fit_mt$tree), bs, p = 50, type="p", main="Standard bootstrap") # plot trees with midpoint rooting 
-
-tree_stdbs <- plotBS(midpoint(fit_mt$tree), bs, p = 50, type="n", main="Standard bootstrap") ##assigning standard bootstrap values to our tree; this is the default method
-
-#### exporting trees tree with standard bootstrap values in `newick` format.
-
-    write.tree(tree_stdbs, "fish.tree")
 
 Extra information: ’Beauti’fication of phylogenetic trees can be done
 using `ggplot`and its associated package called `ggtree` can be used to
