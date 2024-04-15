@@ -237,6 +237,7 @@ wc stands for word count. When you use -l it gives you total number of lines ins
 Results will be displayed on screen. We call this results on screen as 'standard output (STDOUT)'.
 
 ### Piping
+
 How many files are there in a folder? 
 
 Test this using: 'ls | wc -l' Here I piped an output from a command called 'ls' to another command 'wc -l'. Here wc -l takes STDOUT of ls as INPUT (STDIN). 
@@ -269,14 +270,15 @@ grep ‘somethingyouwantto’ filename.txt
 Find and replace can be performed using 'sed'.
 sed 's/findword/replaceword/' file.txt
 
-Type “linux cheat sheet” in the google you get 100s of list.  And try those commands
+Type “linux cheat sheet” in the google you get 100s of list.  And try those commands. 
 
 ### File permissions
+
 In Linux everything is a file. Folders are files, files are files and external devices are files. All the files in linux system have file permissions. It says all about who can read and write and execute a file / program/comman. Each file has different level of access restrictions.
 
 If you do 'ls -lh' in a folder 
 
-you see drwxrwxr-x on your screen. They tell you who have permission to use this folder and what purpose (reading, modifying/writing, executing a operation).
+you see drwxrwxr-x on your screen. They tell you who have permission to use this folder (or directory) and what purpose (reading, modifying/writing, executing a operation). If it is a file , then you wont see d, instead it will be rwxrwxr-x
 
 Here are three types of access restrictions (from linux related webpages): 
 
@@ -326,17 +328,16 @@ First number related Owner, second number related group and 3rd number related t
   
 (from google)
 
-TR: 
 TRY out the commands and their usage: ps, top, htop, zcat, unzip, gzip, history. Find out what they do. These commands will give different information about the system and unzipping a xipped folder and so on. 
 
 
 ## Scripting
 
-Now we probably know many things about how the Linux and command line work. Now we will go for a next level called scripting. You already know little bit about scripting from data science part. Scripting is writing a set of instructions to computer.  
+Now we probably few things about how the Linux and command line work. Now we will go for a next level called 'scripting'. You already know little bit about scripting from data science part. Scripting is writing a set of instructions to computer.  
 
-Scripting essentially uses shell, which is a microprocessor allows for an interactive or non-interactive command execution in combination with nano (my favorite text editor to create a new file containing set of instructions in a separate lines). 
+Scripting essentially uses shell, which is a microprocessor which allows for an interactive or non-interactive command execution in combination with nano.
 
-Terminal is input output environment (a mean to talk to computer)
+Terminal is input output environment (a way to talk to computer)
 
 Your terminal contains shell (an interface). A shell is a user interface for access to an operating system's services. 
 
@@ -350,15 +351,12 @@ echo $SHELL
 ```
 Write a small script: 
 
-Open nano
-Type all small commands such as date, cal, ls in separate lines and save it as test.sh. I am using .sh because I am using bash as interpreter of my commands.  
+Open nano. Type all small commands such as date, cal, ls in separate lines and save it as test.sh. I am using .sh because I am using bash as interpreter of my commands.  
 
 There is small script uploaded in the bioinformatics section of the canvas which is related to the taking backup of a folder. 
 
 Variables
-Variables are the essence of programming. Variables allow a programmer to store data, alter and reuse them throughout the script.
-
-Check welcome.sh script and backup.sh script. 
+Variables are the essence of programming. Variables allow a programmer to store data, alter and reuse them throughout the script. Check welcome.sh script and backup.sh script. 
 
 **References for this exercise:
 Some part of this exercise comes from linux tutorials published by Linux (ubuntu) people. All resources in their tutorials are open source.
