@@ -72,7 +72,7 @@ Just type ****blastn -h****  in the command line. if it is all good then you sho
 
 We know how the command line system works in a Linux OS from our previous practicals. We will utilise that knowledge here to run a local blast. We can get exactly same output (like one from web based) in this method. Only difference beyween web and command line based application of blast is local blast output lacks lacks graphical features. In the help dipsay of above command shos you what ****parameters**** one should use inroder to use ***blastn***. ***Parameters*** (also called command line arguments) in a command line application are instructions: specify information that the command needs in order to run. example ls is command name and -a flag (parameter), if you use this -a along with 'ls' then it lists the files within that folder.
 
-Befoew we running script, try to see the conent of the fasta file you are trying to run as query. 
+Before we running script, try to see the conent of the fasta file you are trying to run as query. 
 
 We will write the blastn script together (NB! there are spaces between the different parameters)
 
@@ -82,7 +82,7 @@ blastn  -query name of the query file -db  path_to_database/nt_teleost_16112020 
 -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore" # this way you can customise the output file
 
 ```
-Also try ***blastp -h*** and run ***blastp*** related analysis. 
+Also try ***blastp -h*** and run ***blastp*** related analysis. Just download some protein related data from protein database and try blastp in the web. 
 
 Default column names (-outfmt 6) (look into online help or terminal help:
 
@@ -104,9 +104,10 @@ qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bits
 11. evalue expect value
 12. bitscore bit score
 
-#### Field application of BLASTing
+#### Field application of BLAST'ing
+
 1. Identification of species
-2. Comaprative genomics : comparing the sequences for commonality and divergence
+2. Comaparative genomics : comparing the sequences for commonality and divergence
 3. Barcoding of an organism
    
 COI from mitochondria is used as a genetic marker to barcode the species. Barcode is the same thing you see on a packet or box in the shop. more detail about the barcode projects here: ***https://phe.rockefeller.edu/barcode/index.php***
