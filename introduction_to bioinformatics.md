@@ -344,7 +344,7 @@ Now we will write a very small script using bash as interpreter (interprets comm
 
 run:
 
-````
+```
 echo $SHELL
 
 ```
