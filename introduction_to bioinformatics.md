@@ -1,6 +1,6 @@
-# Practical 1:  Introduction to Linux and command lines: A recap
+# Introduction to Linux and command lines: A recap
 
-•	Learning outcome from this exercise
+Learning outcome from this exercise
 a)	How to connect to remote server/virtual machine
 b)	Basic linux commands for file and folder operations
 
