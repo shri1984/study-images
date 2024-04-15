@@ -10,12 +10,13 @@
  
 Genetic database is one or more sets of genetic data stored together with a software to retrieve, supplement and extract information from them. In this exercise, we will mainly focus on NCBI (National Center for Biotechnology Information). We will quickly browse couple of databases such as KEGG and NCBI. We will dive deep into NCBI in a while.
 
-Let´s start using the NCBI browser to retrieve information. First go to the website: https://www.ncbi.nlm.nih.gov. Look at the home page. Home page has lot of  information, and it is comprehensive: submitting, downloading, different databases (nucleotide, protein, etc…), different software, literature information.  We will spend some time on browsing.
+Let´s start using the NCBI browser to retrieve information. First go to the website: https://www.ncbi.nlm.nih.gov. Look at the home page. Home page has lot of  information, and it is comprehensive: submitting, downloading different databases (nucleotide, protein, etc…), different software, literature information.  We will spend some time on browsing.
 
 #### Downloading the sequence information
-The NCBI is very user-friendly database and genetic data search platform. All the basic operations are meant for traditional biologists, who are not very sauvy with coding and other advanced computation skills. So, anyone with minimum biology knowledge can go in there and retrieve information. The only condition is that as a user you need to know what you want, which is depend on the question. We will retrieve COI (cytochrome c oxidase subunit I) sequences of some salmonids (family Salmonidae), or you can choose the species you want (or shark). 
 
-On top of the web page there is a search bar to search information about the species of your interest. If you select 'all databases' in the search menu and type the scientific name (common name do work sometimes), if you are interested in a single species. But to address the question like above, you may need to write 'salmonidae COI'. You will be directed to a page where the information about your species of interest is available from all possible databases (including peer reviewed literatures).  This is one way to find desired information for your species.
+The NCBI is very user-friendly database and genetic data search platform. All the basic operations are meant for traditional biologists, who are not very sauvy with coding and other advanced computation skills. So, anyone with minimum biology knowledge can go in there and retrieve information. The only condition is that as a user you need to know what you want, which is depend on the question. We will retrieve COI (cytochrome c oxidase subunit I) sequences of some salmonids or gadidae (family Salmonidae), or you can choose the species you want. We can use these sequences to make phylogenetics trees. 
+
+On top of the web page there is a search bar to search information about the species of your interest. If you select 'all databases' in the search menu and type the scientific name (common name do work sometimes), if you are interested in a single species. But to address the question like above, you may need to write 'salmonidae COI'. You will be directed to a page where the information about your species of interest is available from all possible databases (including peer reviewed literatures). This is one way to find desired information for your species.
 
 Another way is by choosing specific database. 
 Use genus species or family or any other taxonomic classification information along with the gene name (COI) to find the sequences. Now you choose nucleotide instead of all the database example: search term could be 'salmonidae coi'
@@ -24,12 +25,11 @@ Use genus species or family or any other taxonomic classification information al
 2. Download by clicking right corner send to >complete record>file>fasta>download.
 Now sequences are downloaded in the fasta format to your local system (your laptop). Generally, it downloads to folder Downloads (depending on your browser setting). 
  
-Now Open downloaded file using a text editor.  In windows there is default text editor called notepad. But it is not a best text editor. Rather you can download notepad++ (https://notepad-plus-plus.org/downloads/). macOS users can download BBedit (https://www.barebones.com/products/bbedit/). Just check how fasta file looks. 
-Now you have COI sequences belong to different genus of salmonids/your species or family of interest. 
-As I said earlier, you cna search anything in NCBI. try gene names : example p53
+Now Open downloaded file using a text editor. In windows there is default text editor called notepad. But it is not a best text editor. Rather you can download notepad++ (https://notepad-plus-plus.org/downloads/). macOS users can download BBedit (https://www.barebones.com/products/bbedit/). Just check how fasta file looks. Now you have COI sequences belong to different genus of salmonids/your species or family of interest.  As I said earlier, you can search anything in NCBI. try gene names : example p53
 
 #### Using BLAST (basic local alignment search tool) (online version)
-The BLAST is the most famous and powerful application of NCBI.  As the name suggests, it is a match searching tool. Locate the tab in NCBI webpage where the blast application is shown.  Please look into various blast modules. We will go one by one and discuss. 
+
+The BLAST is the most famous and powerful application of NCBI. As the name suggests, it is a match searching tool. Locate the tab in NCBI webpage where the blast application is shown. Please look into various blast modules. We will go one by one and discuss. 
 This is how whole thing works:  Just feed a “unknown” nucleotide or protein sequence to the blast search box and do blast’ing (important: choose right blast module, based on search molecule type and your expectation). It will give you possible hit to your sequence with statistical support (E-VALUE and query coverage). It finds the similarities between sequences you provided (which is 'query'), and sequences stored in the database (which is 'subject'). Blast also calculates the statistical significance of that comparison (E-value, which is like p-value, tells how random the query matches with the subject).  
 Let’s try few unknown sequences in blast and try to find the possible identity of those unknown sequences. I have stored that file in folder called 'nucelotides-student.fasta'. 
 
