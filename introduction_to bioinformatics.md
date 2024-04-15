@@ -358,6 +358,4 @@ There is small script uploaded in the bioinformatics section of the canvas which
 Variables
 Variables are the essence of programming. Variables allow a programmer to store data, alter and reuse them throughout the script. Check welcome.sh script and backup.sh script. 
 
-**References for this exercise:
-Some part of this exercise comes from linux tutorials published by Linux (ubuntu) people. All resources in their tutorials are open source.
-**
+****References for this exercise: Some part of this exercise comes from linux tutorials published by Linux (ubuntu) people. All resources in their tutorials are open source****
