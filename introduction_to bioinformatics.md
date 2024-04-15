@@ -13,10 +13,10 @@ When you press registration link, it will take you labs.azure.com. Once you are 
 Type terminal in Launchpad and press terminal. Select terminal and paste that command there and Press enter.  Type yes in next command (fingerprint question). Type password you set. You should be in now. 
 
 ###### Following steps will apply for windows users only:
-Option 1
+Option 1.
 If you have power terminal (PowerShell) in your windows (type PowerShell in search bar), then things are easy. Open the power terminal and paste the command line you copied from labs.azure.com, type password (you won’t see any anything, it is hidden as they are passwords!!!!). You are in. 
 
-Option 2
+Option 2. 
 From MobaXterm also you can launch the ssh command and get into the server. 
 
 ###### for all 
