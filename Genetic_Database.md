@@ -50,6 +50,7 @@ What do you need,
 3.	Query sequence(s)
 
 **You don’t do installation and database generation in this practical. I have done installation part for you***
+
 ###### Install NCBI BLAST+: 
 In linux OS:  apt-get ncbi-blast+ or conda install 
 It will download the precompiled latest version of blast+ tools to your system. 
@@ -58,7 +59,9 @@ https://www.ncbi.nlm.nih.gov/books/NBK52640/
 go to this link to install in Linux. 
 
 ###### Prepare database
-Don’t do this either (if you want to try, go to blast manual on how to make blast database). I made this for you. Database is the one you blast your query against. I choose database which is 'teleost' specific. 
+
+Don’t do this either (if you want to try, go to blast manual on how to make blast database). Database is the one you blast your query against. I made this for you. I choose database which is 'teleost' specific. Nucleotide database at NCBI doesnt exist species wise. Hence database is huge and runs upto 100-200s Gigabytes. So we need to filter databases to restrict to our group of interest. 
+
 Go to FTP server of the NCBI and look for premade blast database. 
 https://ftp.ncbi.nlm.nih.gov/blast/db/
  or 
