@@ -1,18 +1,22 @@
 # Introduction to Linux and command lines: A recap
 
 #### Learning outcome from this exercise
+
 a)	How to connect to remote server/virtual machine
 b)	Basic linux commands for file and folder operations
 
 #### How to connect to your virtual machines
+
 I used azure lab (labs.azure.com) to create individual linux virtual machines. You already got an invitation from me to join virtual lab at labs.azure.com. Once you register, you will see your machine. This portal is to start/switch off your server outside the scheduled hour (1000-1600). However, process of connecting to a server is not automatic and you need to do it yourself when you need to do some work in the server. 
 
 When you press registration link, it will take you labs.azure.com. Once you are done with registration, you will see a linux virtual machine in your home page (labs.azure.com). You cannot do anything until you set a password. Press “reset password” button (one row of 3 dots) to set a password. It will take ca. two minutes to finish password setting. Then you will see computer icon close to that row of 3 dots. Click start and wait until you get “running” there. Now press that icon to get popup window with ssh command line to connect your virtual machine. Copy that command line. 
 
 ###### Following steps will apply for Mac only:
+
 Type terminal in Launchpad and press terminal. Select terminal and paste that command there and Press enter.  Type yes in next command (fingerprint question). Type password you set. You should be in now. 
 
 ###### Following steps will apply for windows users only:
+
 Option 1.
 If you have power terminal (PowerShell) in your windows (type PowerShell in search bar), then things are easy. Open the power terminal and paste the command line you copied from labs.azure.com, type password (you won’t see any anything, it is hidden as they are passwords!!!!). You are in. 
 
@@ -20,9 +24,11 @@ Option 2.
 From MobaXterm also you can launch the ssh command and get into the server. 
 
 ###### for all 
-We also need to install filezilla, a file transferring system for mac and windows and it comes with graphical user interface. Download your copy of that from here: https://filezilla-project.org/download.php?type=client and install. Then we need to prepare filezilla to connect to our server. we will do it togehter. First open the app and follow the document uploaded (configure filezilla) 
+
+We also need to install filezilla, a file transferring system for mac and windows and it comes with graphical user interface. Download your copy of that from here: https://filezilla-project.org/download.php?type=client and install. Then we need to prepare filezilla to connect to our server. we will do it together. First open the app and follow the document uploaded (configure filezilla) 
 
 #### History of terminal
+
 Probably Daniel might have already dwelled into this section. 
 Terminal is just a tool to connect commands with the machine, just like a keyboard and mouse.  Simple!!! You have already experienced how most of the linux machine look like: there is no graphical user interface (GUI) between you and the server. GUI do exist for personal Linux based machines. We use ‘commands’ to communicate with the server/virtual machine. A 'Command' is synonymous to 'tranfer a file from one folder to another folder in a ordinary computer where you have access to mouse or touchpad.
 
@@ -50,6 +56,7 @@ This is your current working directory (remember from part 1, R?).
 
 
 ## Listing the content of a folder (or directory)
+
 Use 'ls' to list what is there in your present directory. 'ls' stands for list. 
 
 Type: man ls to read the help. use man for help. 
