@@ -1,10 +1,10 @@
 # Introduction to Linux and command lines: A recap
 
-Learning outcome from this exercise
+#### Learning outcome from this exercise
 a)	How to connect to remote server/virtual machine
 b)	Basic linux commands for file and folder operations
 
-•	How to connect to your virtual machines
+#### How to connect to your virtual machines
 I used azure lab (labs.azure.com) to create individual linux virtual machines. You already got an invitation from me to join virtual lab at labs.azure.com. Once you register, you will see your machine. This portal is to start/switch off your server outside the scheduled hour (1000-1600). However, process of connecting to a server is not automatic and you need to do it yourself when you need to do some work in the server. 
 
 When you press registration link, it will take you labs.azure.com. Once you are done with registration, you will see a linux virtual machine in your home page (labs.azure.com). You cannot do anything until you set a password. Press “reset password” button (one row of 3 dots) to set a password. It will take ca. two minutes to finish password setting. Then you will see computer icon close to that row of 3 dots. Click start and wait until you get “running” there. Now press that icon to get popup window with ssh command line to connect your virtual machine. Copy that command line. 
@@ -19,6 +19,7 @@ If you have power terminal (PowerShell) in your windows (type PowerShell in sear
 Option 2
 From MobaXterm also you can launch the ssh command and get into the server. 
 
+###### for all 
 We also need to install filezilla, a file transferring system for mac and windows and it comes with graphical user interface. Download your copy of that from here: https://filezilla-project.org/download.php?type=client and install. Then we need to prepare filezilla to connect to our server. we will do it togehter. First open the app and follow the document uploaded (configure filezilla) 
 
 •	History of terminal
