@@ -22,7 +22,7 @@ From MobaXterm also you can launch the ssh command and get into the server.
 ###### for all 
 We also need to install filezilla, a file transferring system for mac and windows and it comes with graphical user interface. Download your copy of that from here: https://filezilla-project.org/download.php?type=client and install. Then we need to prepare filezilla to connect to our server. we will do it togehter. First open the app and follow the document uploaded (configure filezilla) 
 
-•	History of terminal
+#### History of terminal
 Probably Daniel might have already dwelled into this section. 
 Terminal is just a tool to connect commands with the machine, just like a keyboard and mouse.  Simple!!! You have already experienced how most of the linux machine look like: there is no graphical user interface (GUI) between you and the server. GUI do exist for personal machines. We use ‘commands’ to communicate with the server/virtual machine. A 'Command' is synonymous to 'tranfer a file from one folder to another folder in a ordinary computer where you have access to mouse or touchpad.
 
