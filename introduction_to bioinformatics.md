@@ -9,10 +9,10 @@ I used azure lab (labs.azure.com) to create individual linux virtual machines. Y
 
 When you press registration link, it will take you labs.azure.com. Once you are done with registration, you will see a linux virtual machine in your home page (labs.azure.com). You cannot do anything until you set a password. Press “reset password” button (one row of 3 dots) to set a password. It will take ca. two minutes to finish password setting. Then you will see computer icon close to that row of 3 dots. Click start and wait until you get “running” there. Now press that icon to get popup window with ssh command line to connect your virtual machine. Copy that command line. 
 
-•	Following steps will apply for Mac only:
+###### Following steps will apply for Mac only:
 Type terminal in Launchpad and press terminal. Select terminal and paste that command there and Press enter.  Type yes in next command (fingerprint question). Type password you set. You should be in now. 
 
-•	For windows users only:
+###### Following steps will apply for windows users only:
 Option 1
 If you have power terminal (PowerShell) in your windows (type PowerShell in search bar), then things are easy. Open the power terminal and paste the command line you copied from labs.azure.com, type password (you won’t see any anything, it is hidden as they are passwords!!!!). You are in. 
 
