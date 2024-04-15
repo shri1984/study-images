@@ -24,9 +24,9 @@ We also need to install filezilla, a file transferring system for mac and window
 
 #### History of terminal
 Probably Daniel might have already dwelled into this section. 
-Terminal is just a tool to connect commands with the machine, just like a keyboard and mouse.  Simple!!! You have already experienced how most of the linux machine look like: there is no graphical user interface (GUI) between you and the server. GUI do exist for personal machines. We use ‘commands’ to communicate with the server/virtual machine. A 'Command' is synonymous to 'tranfer a file from one folder to another folder in a ordinary computer where you have access to mouse or touchpad.
+Terminal is just a tool to connect commands with the machine, just like a keyboard and mouse.  Simple!!! You have already experienced how most of the linux machine look like: there is no graphical user interface (GUI) between you and the server. GUI do exist for personal Linux based machines. We use ‘commands’ to communicate with the server/virtual machine. A 'Command' is synonymous to 'tranfer a file from one folder to another folder in a ordinary computer where you have access to mouse or touchpad.
 
-•	Basics of Linux command line
+# Basics of Linux command line
 
 Once you are connected to the server, first thing you see is a welcome message and this: 
 
@@ -58,7 +58,7 @@ Mostl likely you will not see anything. Just an empty folder. Lets make some fol
 
 ## create a new folder inside the working directory
 
-We use 'mkdir' command to make directories. Remember about shortcuts. this is useful when you executed certian command and you want to rerun, then use up nd down keys to get that command. Also tab is very useful to complete such as file name and folder you want to read or enter into. press TAB and then write first letter, it will show you lsit of files starting with that letter in that folder.
+We use 'mkdir' command to make directories. Remember about shortcuts. This is useful when you executed certian command and you want to rerun, then use up nd down keys to get that command. Also tab is very useful to complete such as file name and folder you want to read or enter into. press TAB and then write first letter, it will show you lsit of files starting with that letter in that folder.
 
 Try all these commands after reading the manual
 mkdir test_1
@@ -72,23 +72,25 @@ and
 mkdir NAME OF A FOLDER
 
 what do you see? 
-Computer will treat space as separate folder yu are sking it to make. If you want (**I discourage using space in file or folder name)** then you should use this option:
 
-mkdir "NAME OF A FOLDER"
+Computer will treat space as separate folder you are asking it to make. If you want (**I discourage using space in file or folder name)** 
 
 ## Navigating between the directories
-This is a routine thing we everyday we do in laptop, moving files from one folder to another. 
+
+This is a routine thing we everyday do in laptop, moving files from one folder to another. 
 We use a command called 'cd' **(c**hange **d**irectory). 
 cd  specify which directory you want to go 
 Example:  cd .. (Take you one level up toward the direcptry called **root**) or cd /
 
 note down your current owrking directy and then run this following command.
+
 ```
 cd ..
 
 ```
 What did you see? 
-now type 
+
+Now type 
 
 ```
 cd /  #will take you to the “root” directory
@@ -96,7 +98,7 @@ cd /  #will take you to the “root” directory
 ```
 Yes, it is analogous to **root** from a tree. All the other directories in the server are branching from this directory. 
 
-As i said earlier '..’ along with 'cd' to move towards directories multiple levels of parent directories
+As I said earlier '..’ along with 'cd' to move towards directories multiple levels of parent directories
 
 ```
 cd  ../  #change directory to the parent directory of the current directory
@@ -104,10 +106,11 @@ cd  ../  #change directory to the parent directory of the current directory
 pwd
 ```
 
-
 ## Relative and absolute paths
+
 **Relative path**: The place you end up depends on your current working directory. It doesn't start with a leading slash (/).
- Try 'cd etc' or 'cd mnt'
+
+Try 'cd etc' or 'cd mnt'
 what do you get? **No such file or directory**. 
 
 **Absolute path:**  no matter where you are (current folder) you will still reach to the folder you want to enter. It always starts with a leading slash (/).
@@ -116,6 +119,7 @@ cd /
 cd /etc 
 
 **BONUS:** Other way to reach your home directory is step by step using the ‘tilde’ character (”~”) at the start of your path similarly means “starting from my home directory”.
+
 Try 
 ```
 cd ~
@@ -123,7 +127,8 @@ cd ~
 ```
 
 ## Creating a file and adding contents to a file
-Stay in the folder you are in right now. you can use 'touch' to create a new file. But it is empty file. Just check it using 'cat' or 'less'.
+
+Stay in the folder you are in right now. You can use 'touch' to create a new file. But it is an empty file. Just check it using 'cat' or 'less'.
 
 ```
 touch test.txt
@@ -147,6 +152,10 @@ echo "This is a second test" > test_2.txt
 nano ls.txt
 nano test_1.txt
 
+head ls.txt (gives you first 10 lines of a file)
+
+tail ls.txt (gives you last 10 lines of a file)
+
 ````
 
 How to read multiple files together? Use cat again. cat is concatenate
@@ -154,6 +163,7 @@ cat test_1.txt test_2.txt
 cat test_1.txt test_2.txt >concatenated_file.txt
 
 ## wild cards
+
 If there is consistent pattern in file names, you can use wild card such as *. 
 Example: 
 
@@ -162,7 +172,8 @@ cat test_* > combined.txt
 cat t*>combined.txt
 
 ```
-### Tips to make a good fodler name and file name: 
+### Tips to make a good fodler name and file name
+
 1.	Don’t use spaces in the file name
 2.	Don’t use capital letters in the naming: need to switch of caps lock every now and then.
 3.	Use names as sensible as possible so that it gives you lot of information about the conent of the folder.
@@ -170,10 +181,11 @@ cat t*>combined.txt
 5.	Always use an extension to a file. Example: .txt, .csv, .tsv 
 
 ## Moving and manipulating a file
+
 Let’s move the file from current directory to another directory. One can use 'cp' or 'mv'. 
 We use a command called mv, which stands for **move**. 
 
-mv combined.txt newdirectory
+mv combined.txt newdirectory (here first make your new directory using mkdir command)
 
 Confirm the result by 'ls dir1'. Or just run ls in the current directory. If it is not present in the current directory, then it is moved to dir1. Mv commnd physically moves file from one location to another.
 
@@ -182,6 +194,7 @@ You can use mv command to move more than one element from a directory. Last para
 If you want to bring back combined.txt to where it was before moving, then use mv dir1/combined.txt.
 
 Now we will keep a copy of the file before we move that file anywhere else.
+
 ```
 cp combined.txt combined_copy.txt
 
@@ -206,9 +219,10 @@ rmdir example_folder #removes a folder
 1.	Think twice before you run the command rm. 
 2.	Be careful with using rm command in wild card setup.
 3.	rm command doesn’t move the files to thrash/recycle bin. It simply deletes file from the system with no way to recover it (it is possible the big servers).
-4.	If you are unsure try to use -i with rm command to enable interactive mode, so that you have second chance to think before you say YES. 
+4.	If you are unsure, try to use -i with rm command to enable interactive mode, so that you have second chance to think before you say YES. 
 
 ## Plumbing work
+
 You want to know how many lines there in text file are. It is easy if you use a graphical interface utility (or a text editor which gives you line number, example nano). But you want to know the line number quickly, you need to use command line to figure that out. 
 
 How many lines are there in combined.txt?
