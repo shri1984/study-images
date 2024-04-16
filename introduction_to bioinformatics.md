@@ -2,8 +2,8 @@
 
 #### Learning outcome from this exercise
 
-a)	How to connect to remote server/virtual machine
-b)	Basic linux commands for file and folder operations
+a. How to connect to remote server/virtual machine
+b. 	Basic linux commands for file and folder operations
 
 #### How to connect to your virtual machines
 
