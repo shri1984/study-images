@@ -95,16 +95,24 @@ library(ggmsa)
 
 ### Read sequences in fasta format into msa (Multiple Sequence Alignment) algorithm
 
-mysequencefile <- readDNAStringSet("phylogenetics_tree.fasta", format = "fasta") 
+```
+mysequencefile <- readDNAStringSet("phylogenetics_tree.fasta", format = "fasta")
+
+```
 
 ### Run multiple alignemnt analysis using `muscle` program in msa
 
 This following step can lot of time, depending on number of sequences
 and length. Here it will go fast.
 
+```
 alignmuscle  <- msa(mysequencefile, method = "Muscle")
 
 align_format <- msaConvert(alignmuscle, type= "bios2mds::align")
+
+align_phydata <- msaConvert(alignmuscle, type= "phangorn::phyDat")
+
+```
 
 you can write alignment data to a file instead of keeping it in an R object, use
 
@@ -142,14 +150,14 @@ methods.
 
 Distance-based trees are produced by calculating the genetic distances between pairs of taxa/species/measurements, followed by hierarchical clustering that creates the actual “tree” look. Two popular clustering methods that are used most frequenctly for distance based clustering method are UPGMA and NJ algorithms.
 
-UPGMA- this is the simplest method for constructing trees, assumes the same evolutionary speed for all lineages (which can be a disadvantage); all leaves have the same distance from the root (creates ultrametric tree)
+UPGMA- this is the simplest method for constructing trees, assumes the same evolutionary speed for all lineages (which can be a disadvantage); all leaves have the same distance from the root (creates ultrametric tree). Ultrametric tree is the one where distance from root to every type tip are equal. This tree is  often used to represent hierarchical clustering of sequences and species, showcasing the evolutionary time from the last common ancestor. UPGMA is one such type of tree.
 
-Neighbor-joining- taking the two closest nodes of the tree and defines them as neighbors; you keep doing this until all of the nodes have been paired together
+Neighbor-joining- taking the two closest nodes of the tree and defines them as neighbors; you keep doing this until all of the nodes have been paired together. This forms the example for addtive type of tree, also known as metric trees. In this type branch lengths accurately represent the genetic distance or evolutionary change between species or sequences. 
 
 
 ### Distance based phylogenetic tree construction
 
-First calculate a distance matrix from ***ape** package
+First calculate a distance matrix from ***ape** package using dist.dna function.  
 
 ```
 D <- dist.dna(alignmentfish, model = "TN93")  #just the type of evolutionary model we’re using, this particular one allows for different transition rates, heterogenous base frequencies, and variation of substitution rate at the same site
@@ -168,7 +176,10 @@ treeNJ <- ladderize(treeNJ) #This function reorganizes the internal structure of
 
 treeNJ # tells us what the tree will look like but doesn't show the actual construction
 
-treeUPGMA <- hclust(D, method = "average", members = NULL) # method = average is used for UPGMA, members can be equal to NULL or a vector with a length of size D. This tree is called an ultrametric tree, 
+treeUPGMA <- upgma(D, "centroid") #This tree is called an ultrametric tree, 
+
+treeUPGMA
+
 
 ```
 Plot trees using generic function. Remember here we are just making tree strucure. But you can play around and make colourful trees using different functions. 
@@ -229,7 +240,7 @@ even after leaving out some data.
 
 First we need to write a function
 
-    fun <- function(x) root(nj(dist.dna(x, model = "TN93")),1) ## function calculates distance first and then tree is calculated from alignment. function fun performs tree building on the input x using the upgma algorithm after calculating the pairwise distance between elements using dist.ml.
+fun <- function(x) root(nj(dist.dna(x, model = "TN93")),1) ## function calculates distance first and then tree is calculated from alignment. function fun performs tree building on the input x using the upgma algorithm after calculating the pairwise distance between elements using dist.ml.
 
 Then need to calculate boot strap values through bootstrap.phyDat function from phangron.
 
@@ -263,12 +274,12 @@ plot(treeNJroot_trimmed, show.tip=FALSE, edge.width=2, main = "NJ tree after col
 
 ### Parsimony based trees
 
-Now we will caluclate parsimony score, which is the minimum number of changes ncecessary to describe the data for a given tree type.
+Now we will caluclate parsimony score, which is the minimum number of changes ncecessary to describe the data for a given tree type. Parsimony returns the parsimony score of a tree. Parsimony analysis needs a base tree. We will use treeNJ from first part of the analysis as base tree.
 
 ```
 align_phydata <- msaConvert(alignmuscle, type= "phangorn::phyDat")
 
-parsimony(treeNJroot, align_phydata) #parsimony returns the parsimony score of a tree
+parsimony(treeNJroot, align_phydata)  
 
 tre.pars.nj <- optim.parsimony(treNJ, align_phydata)
 tre.pars.nj 
@@ -279,22 +290,37 @@ plot(tre.pars.nj, type="unr", show.tip=FALSE, edge.width=2, main = "Maximum-pars
 
 ### Maximum Likelihood-based 
 
+Maximum Likelihood (ML) is a statistical approach used in phylogenetic reconstruction to find the tree topology that maximizes the probability of observing the given sequence data under a specific model of evolution. It evaluates different tree topologies and branch lengths to identify the most likely phylogenetic tree that explains the observed data (Manuel Villalobos)
+
 #### compare different nucleotide substitution models we needed to make MxL-based tree
 
-As a first step, we will try to find the best fitting substition model. For this we use the function `modelTest` to compare different nucleotide or protein models with the AIC, AICc or BIC
+As a first step, we will try to find the best fitting substition model. For this we use the function `modelTest` to compare different nucleotide or protein models with the AIC, AICc or BIC. Second step is tree search. Here ML-based algorithm explores all possible tree toplogies and branch lengths. In the third step, each tree topology is otimised for branch lengths. Final step is tree evaluation using standard bootstrapping method. 
 
 ```
+#distance calculation
+
+dm <- dist.dna(align_phydata)
+
+# Base Tree Construction
+
+tree <- nj(D)
+
+### model testing : Conduct a model test to determine the best-fitting evolutionary model based on AIC
+
 mt <- modelTest(align_phydata, control=pml.control(trace=0))
 
 fit <- as.pml(mt, "BIC") #choose best model based on BIC criteria
 
-dm <- dist.dna(align_phydata)
-
-tree <- nj(D)
+# Initialize PML Tree
+# Create an initial PML (Phylogenetic Maximum Likelihood) tree using the NJ tree and selected evolutionary model
 
 fit.ini <- pml(tree, align_phydata )
 
-fitTrN <- optim.pml(fit.ini, model="TrN", optInv=TRUE, optGamma=TRUE, rearrangement = "stochastic", control = pml.control(trace = 0))
+# Optimize PML Tree
+# Optimize the PML tree through various parameters and tree rearrangement methods
+
+fitTrN <- optim.pml(fit.ini, model="TrN", optInv=TRUE, optGamma=TRUE, rearrangement =
+"stochastic", control = pml.control(trace = 0))
 
 ```
 
