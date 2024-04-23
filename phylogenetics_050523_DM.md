@@ -12,7 +12,7 @@
 
 We will do a fun exercise before we do a real phylogenetic tree construction. Can you place these new organisms in order? And give your rationale for your placement of that organism in this tree.
 
-![](https://raw.githubusercontent.com/shri1984/study-images/main/Picture1.jpg?token=GHSAT0AAAAAACCFFFMC5RONLSSBPRYSKJBGZCUWWBQ)
+![](https://raw.githubusercontent.com/shri1984/study-images/main/Picture1.jpg?token=GHSAT0AAAAAACCFFFMC5RONLSSBPRYSKJBGZCUWWBQ) (FIX THIS IMAGE PROBLEM)
 
 ## Building a phylogenetic tree using some anatomical characters
 
@@ -182,12 +182,14 @@ treeUPGMA
 
 
 ```
-Plot trees using generic function. Remember here we are just making tree strucure. But you can play around and make colourful trees using different functions. 
+Plot trees using generic function. But you can play around and make colourful trees using different functions and packages. 
 
 ```
 treeUPGMA <- ladderize(treeUPGMA) #This function reorganizes the internal structure of the tree to get the ladderized effect when plotted
 
 plot(treeUPGMA, main="A Simple UPGMA Tree")
+
+add.scale.bar()
 
 treeNJ <- ladderize(treeNJ) #This function reorganizes the internal structure of the tree to get the ladderized effect when plotted
 
@@ -199,8 +201,6 @@ add.scale.bar()
 if you want make rooted NJ treee,
 
 ```
-
-
 treeNJroot <- root(treeNJ, outgroup = "KM224857_Esox_lucius", resolve.root = TRUE, edgelabel = TRUE)
 
 treeNJroot <- ladderize(treeNJout)
@@ -214,7 +214,7 @@ As we have lot of options to make a phylogenetics trees, we have to make sure th
 
 ### choosing 'right' algorithm 
 
-We will use correlation analysis between the caluclated distnce between the taxa and cophenetic distance to choose the the right tree. The cophenetic distance between two observations that have been clustered is defined to be the intergroup dissimilarity at which the two observations are first combined into a single cluster. Note that this distance has many ties and restrictions.
+We will use correlation analysis between the calculated distance between the taxa and cophenetic distance to choose the the right tree. The  between two observations that have been clustered is defined to be the intergroup dissimilarity at which the two observations are first combined into a single cluster. 
 
 ```
 x <- as.vector(D) # convert D as vector
@@ -244,9 +244,9 @@ even after leaving out some data.
 
 ![](https://github.com/shri1984/study-images/blob/14bd0e4e8f9226b9e749f08e431f617b94a58159/3-s2.0-B9780128096338202598-f20259-01-9780128114148.jpg)
 
-First we need to write a function
+First we need to write a function. boot.phylo needs FUN because, it uses this function to build the resample phylogenetic tree for bootstrap purpose. 
 
-fun <- function(x) root(nj(dist.dna(x, model = "TN93")),1) ## function calculates distance first and then tree is calculated from alignment. function fun performs tree building on the input x using the upgma algorithm after calculating the pairwise distance between elements using dist.ml.
+fun <- function(x) root(nj(dist.dna(x, model = "TN93")),1) ## function calculates distance first and then tree is calculated from alignment. Function fun performs tree building on the input x using the upgma algorithm after calculating the pairwise distance between elements using dist.ml.
 
 Then need to calculate boot strap values through bootstrap.phyDat function from phangron.
 
@@ -266,17 +266,6 @@ nodelabels(bs_nj, cex=.6) # adds labels to or near the nodes
 ```
 How does node support looks? the numbers shown by nodelabels() show how many times each node appreared in the bootstrapped trees. If the numbers by each node are pretty low, meaning there’s not a huge overlap between the nodes in our original tree and the nodes in the bootstrapped tree. Tt means that some of the nodes aren’t supported.
 
-How do we overcome this and fix our tree? We can collapse some of the smaller branches, which will make the tree less informative but more concrete.
-
-```
-temp <- treeNJroot
-N <- length(treeNJroot$tip.label)
-toCollapse <- match(which(bs_nj<70)+N, temp$edge[,2])
-temp$edge.length[toCollapse] <- 0
-treeNJroot_trimmed <- di2multi(temp, tol=0.00001)
-plot(treeNJroot_trimmed, show.tip=FALSE, edge.width=2, main = "NJ tree after collapsing weak nodes")
-
-```
 
 ### Parsimony based trees
 
@@ -287,8 +276,11 @@ align_phydata <- msaConvert(alignmuscle, type= "phangorn::phyDat")
 
 parsimony(treeNJroot, align_phydata)  
 
-tre.pars.nj <- optim.parsimony(treNJ, align_phydata)
-tre.pars.nj 
+tre.pars.nj <- optim.parsimony(treNJ, align_phydata) # it used whole sequences to make a tree, unlike distance based trees such as nj or upgma. 
+
+tre.pars.nj
+
+parsimony(tre.pars.nj, align_phydata)
 
 plot(tre.pars.nj, type="unr", show.tip=FALSE, edge.width=2, main = "Maximum-parsimony tree") #it has lower parsimonious score compare to the original tree. try other type 
 
@@ -303,13 +295,9 @@ Maximum Likelihood (ML) is a statistical approach used in phylogenetic reconstru
 As a first step, we will try to find the best fitting substition model. For this we use the function `modelTest` to compare different nucleotide or protein models with the AIC, AICc or BIC. Second step is tree search. Here ML-based algorithm explores all possible tree toplogies and branch lengths. In the third step, each tree topology is otimised for branch lengths. Final step is tree evaluation using standard bootstrapping method. 
 
 ```
-#distance calculation
+#distance calculation and Base Tree Construction
 
-dm <- dist.dna(align_phydata)
-
-# Base Tree Construction
-
-tree <- nj(D)
+tre.ini <- nj(dist.dna(alignment_dnabin ,model="F84"))
 
 ### model testing : Conduct a model test to determine the best-fitting evolutionary model based on AIC
 
@@ -320,7 +308,7 @@ fit <- as.pml(mt, "BIC") #choose best model based on BIC criteria
 # Initialize PML Tree
 # Create an initial PML (Phylogenetic Maximum Likelihood) tree using the NJ tree and selected evolutionary model
 
-fit.ini <- pml(tree, align_phydata )
+fit.ini <- pml(tree, align_phydata, k=4 ) #pml() calculates the likelihood of the data given the model, initially just using our neighbor joining tree. This sets up for rate variation but not yet specifying TrN+I+G
 
 # Optimize PML Tree
 # Optimize the PML tree through various parameters and tree rearrangement methods
@@ -335,15 +323,16 @@ It is important to verify which tree was better and has good evidence?
 ```
 anova(fit.ini, fit)
 
+#The AIC is a method for model selection that balances the complexity of the model against how well the model fits the data 
 AIC(fit.ini)
 
 AIC(fit)
 
 ```
 Both the ANOVA test (highly significant) and the AIC (lower=better) indicate that the new tree is a better model of the data than the initial one.
-
+The AIC is a method for model selection that balances the complexity of the model against how well the model fits the data.
 ```
-tre4 <- root(fitTrN$tree, outgroup = "KM224857_Esox_lucius", resolve.root = TRUE, edgelabel = TRUE))
+tre4 <- root(fitTrN$tree, outgroup = "Esox_lucius", resolve.root = TRUE, edgelabel = TRUE))
 tre4 <- ladderize(tre4)
 plot(tre4, show.tip=FALSE, edge.width=2, main = "Maximum-likelihood tree")
 
