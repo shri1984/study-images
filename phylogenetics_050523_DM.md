@@ -106,9 +106,9 @@ This following step can lot of time, depending on number of sequences
 and length. Here it will go fast.
 
 ```
-alignmuscle  <- msa(mysequencefile, method = "Muscle")
+alignomega  <- msa(mysequencefile, method = "ClustalOmega")
 
-align_format <- msaConvert(alignmuscle, type= "bios2mds::align")
+align <- msaConvert(alignomega, type= "bios2mds::align")
 
 align_phydata <- msaConvert(alignmuscle, type= "phangorn::phyDat")
 
@@ -117,7 +117,7 @@ align_phydata <- msaConvert(alignmuscle, type= "phangorn::phyDat")
 you can write alignment data to a file instead of keeping it in an R object, use
 
 ```
-export.fasta(align_format, outfile = "myAlignment.fasta", ncol = 60, open = "w")
+export.fasta(align, outfile = "myAlignment.fasta", ncol = 60, open = "w")
 
 ```
 
@@ -128,7 +128,7 @@ If ypu want to visualise and annotation of multiple sequence alignment such as m
 ```
 ggmsafile<- "/Users/sbh001/Library/CloudStorage/OneDrive-UiTOffice365/course-FSK2053/lecture3_phylogenetics/myAlignment.fasta"
 
-ggmsa(ggmsafile, 300, 350, color = "Clustal", font = "DroidSansMono", char_width = 0.5, seq_name = TRUE ) + geom_seqlogo() + geom_msaBar()  # see alignment in colurful format.
+ggmsa(ggmsafile, 300, 350, color = "Chemistry_NT", font = "TimesNewRoman", char_width = 0.5, seq_name = TRUE ) + geom_seqlogo() + geom_msaBar()  # see alignment in colurful format.
 
 ```
 
@@ -139,7 +139,9 @@ this is that you can directly proceed to other packages without reading
 the input again. Here we will convert msa object into DNAbin object reqired by paclakge ***ape**.
 
 ```
-alignmentfish <- msaConvert(alignmuscle, type= "ape::DNAbin")
+alignment_dnabin <- msaConvert(alignmuscle, type= "ape::DNAbin")
+
+align_phydata <- msaConvert(alignmuscle, type= "phangorn::phyDat")
 
 ```
 
@@ -165,14 +167,12 @@ D <- dist.dna(alignmentfish, model = "TN93")  #just the type of evolutionary mod
 length(D) #number of pairwise distances, computed as n(n-1)/2
 
 ```
-Now use object dm to costruct two distance based phylogenetic trees. There are lot of functions in R to build distance based phylogenetic tree. But we will use few of them here mainly from ***ape** package
+Now use object D, which is distance matrix to costruct two distance based phylogenetic trees. There are lot of functions in R to build distance based phylogenetic tree. But we will use few of them here mainly from ***ape** package
 
 ```
 treeNJ <- nj(D)
 
 class(treeNJ) #all trees created using ape package will be of class phylo
-
-treeNJ <- ladderize(treeNJ) #This function reorganizes the internal structure of the tree to get the ladderized effect when plotted
 
 treeNJ # tells us what the tree will look like but doesn't show the actual construction
 
@@ -185,7 +185,11 @@ treeUPGMA
 Plot trees using generic function. Remember here we are just making tree strucure. But you can play around and make colourful trees using different functions. 
 
 ```
+treeUPGMA <- ladderize(treeUPGMA) #This function reorganizes the internal structure of the tree to get the ladderized effect when plotted
+
 plot(treeUPGMA, main="A Simple UPGMA Tree")
+
+treeNJ <- ladderize(treeNJ) #This function reorganizes the internal structure of the tree to get the ladderized effect when plotted
 
 plot(treeNJ, type = "phylogram", main="A Simple NJ Tree", show.tip=FALSE)
 
@@ -195,6 +199,8 @@ add.scale.bar()
 if you want make rooted NJ treee,
 
 ```
+
+
 treeNJroot <- root(treeNJ, outgroup = "KM224857_Esox_lucius", resolve.root = TRUE, edgelabel = TRUE)
 
 treeNJroot <- ladderize(treeNJout)
