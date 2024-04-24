@@ -240,8 +240,6 @@ the estimator (Ojha et al 2022). Basic idea is building same tree
 leaving out some portion of evidence (some bases from a sequence) and check if same clades appear
 even after leaving out some data.
 
-![](https://raw.githubusercontent.com/shri1984/study-images/main/Screen%20Shot%202023-05-03%20at%2012.23.01.png?token=GHSAT0AAAAAACCFFFMDFNA5P5PWHFBIYVHCZCUWUQQ)
-
 ![](https://github.com/shri1984/study-images/blob/14bd0e4e8f9226b9e749f08e431f617b94a58159/3-s2.0-B9780128096338202598-f20259-01-9780128114148.jpg)
 
 First we need to write a function. boot.phylo needs FUN because, it uses this function to build the resample phylogenetic tree for bootstrap purpose. 
