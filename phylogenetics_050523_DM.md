@@ -333,10 +333,21 @@ Both the ANOVA test (highly significant) and the AIC (lower=better) indicate tha
 The AIC is a method for model selection that balances the complexity of the model against how well the model fits the data.
 ```
 tre4 <- root(fitTrN$tree, outgroup = "Esox_lucius", resolve.root = TRUE, edgelabel = TRUE))
+
 tre4 <- ladderize(tre4)
+
 plot(tre4, show.tip=FALSE, edge.width=2, main = "Maximum-likelihood tree")
 
 ```
+Finally write the tree information to a file. 
+
+```
+write.tree(tre4, file="tre.tree") 
+
+````
+You can open this tree file using a program called figtree (http://tree.bio.ed.ac.uk/software/figtree/).
+
+
 Extra information: ’Beauti’fication of phylogenetic trees can be done
 using `ggplot`and its associated package called `ggtree` can be used to
 make trees more beautiful.
